@@ -2,18 +2,20 @@ package groep2.joetz.com.joetz_project_groep2_test.repository;
 
 import java.util.List;
 
+import groep2.joetz.com.joetz_project_groep2_test.model.Vakantie;
+
 /**
  * Created by floriangoeteyn on 26-May-16.
  */
 public class Repository {
 
     private static List<OnItemsLoadedListener> listeners;
-    private static List<Object> items;
+    private static List<Vakantie> items;
 
 
     //---------------------------//
 
-    public static List<Object> getItems() {
+    public static List<Vakantie> getItems() {
         return items;
     }
 
@@ -37,7 +39,7 @@ public class Repository {
 
     //--------------------------//
 
-    public static void onItemsLoaded(List<Object> items){
+    public static void onItemsLoaded(List<Vakantie> items){
         Repository.items=items;
         notifyListenersItemsLoaded();
     }

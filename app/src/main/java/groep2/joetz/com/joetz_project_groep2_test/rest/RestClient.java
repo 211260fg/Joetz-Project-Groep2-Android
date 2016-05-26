@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import groep2.joetz.com.joetz_project_groep2_test.model.Vakantie;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -70,17 +71,17 @@ public class RestClient {
     }
 
 
-    public List<Call<Object>> getItemCalls(){
-        List<Call<Object>> calls = new ArrayList<>();
-        calls.add(getItemClient().getItems());
+    public List<Call<Vakantie>> getItemCalls(){
+        List<Call<Vakantie>> calls = new ArrayList<>();
+        calls.add(getItemClient().getVakanties());
         return calls;
     }
 
 
     public interface ItemApiInterface{
 
-        @GET("")
-        Call<Object> getItems();
+        @GET("/vakanties")
+        Call<Vakantie> getVakanties();
     }
 
 }
