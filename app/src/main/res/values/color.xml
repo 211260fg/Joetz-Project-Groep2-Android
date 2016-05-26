@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="transparent_white" type="color">#DDFFFFFF</item>
+    <item name="maintheme" type="color">#DA002F</item>
+    <item name="transparent_maintheme" type="color">#CCDA002F</item>
+
+</resources>
