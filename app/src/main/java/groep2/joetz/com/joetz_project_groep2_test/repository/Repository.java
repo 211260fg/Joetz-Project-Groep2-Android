@@ -1,7 +1,10 @@
 package groep2.joetz.com.joetz_project_groep2_test.repository;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import groep2.joetz.com.joetz_project_groep2_test.model.Category;
 import groep2.joetz.com.joetz_project_groep2_test.model.Vakantie;
 
 /**
@@ -9,9 +12,21 @@ import groep2.joetz.com.joetz_project_groep2_test.model.Vakantie;
  */
 public class Repository {
 
-    private static List<OnItemsLoadedListener> listeners;
-    private static List<Vakantie> items;
+    private static List<OnItemsLoadedListener> listeners = new ArrayList<>();
+    private static List<Vakantie> items = new ArrayList<>();
 
+    //---------------------------//
+
+    static{
+        initTestData();
+    }
+
+    //---------------------------//
+
+    private static void initTestData(){
+        Vakantie v1 = new Vakantie("testtitle", "testdescription", new Date(), new Date(), "testlocation", Category.NO_CATEGORY, 0);
+        items.add(v1);
+    }
 
     //---------------------------//
 
@@ -21,7 +36,7 @@ public class Repository {
 
     //--------------------------//
 
-    public void registerListener(OnItemsLoadedListener listener){
+    public static void registerListener(OnItemsLoadedListener listener){
         if(!listeners.contains(listener))
             listeners.add(listener);
     }

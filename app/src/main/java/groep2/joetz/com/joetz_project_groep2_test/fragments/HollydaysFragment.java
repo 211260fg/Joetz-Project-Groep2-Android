@@ -5,16 +5,27 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import groep2.joetz.com.joetz_project_groep2_test.R;
+import groep2.joetz.com.joetz_project_groep2_test.adapter.RecyclerViewAdapter;
+import groep2.joetz.com.joetz_project_groep2_test.repository.OnItemsLoadedListener;
+import groep2.joetz.com.joetz_project_groep2_test.repository.Repository;
 
 
-public class HollydaysFragment extends Fragment {
+public class HollydaysFragment extends Fragment implements OnItemsLoadedListener {
+
     private OnFragmentInteractionListener mListener;
+    private RecyclerView rv;
+    private RecyclerViewAdapter adapter;
 
+    private View rootView;
 
     public static HollydaysFragment getNewInstance() {
         return new HollydaysFragment();
@@ -23,8 +34,22 @@ public class HollydaysFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_hollydays, container, false);
 
+        rootView = inflater.inflate(R.layout.fragment_hollydays, container, false);
+
+        rv = (RecyclerView) rootView.findViewById(R.id.vacationsRecyclerview);
+
+        createItemView();
+
+        return rootView;
+
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Repository.registerListener(this);
     }
 
     @Override
@@ -43,5 +68,64 @@ public class HollydaysFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+
+    private void createItemView() {
+        //opbouw van de adapter voor de recyclerview
+        LinearLayoutManager llm = new NpaLinearLayoutManager(getContext());
+        rv.setLayoutManager(llm);
+
+        adapter = new RecyclerViewAdapter(Repository.getItems(), mListener, getContext());
+        Log.d("items size", ""+Repository.getItems().size());
+        rv.setAdapter(adapter);
+
+        rv.setItemAnimator(new DefaultItemAnimator());
+    }
+
+
+
+
+
+    @Override
+    public void onItemsLoaded() {
+
+    }
+
+    @Override
+    public void onLoadFailed() {
+
+    }
+
+    @Override
+    public void onItemAdded() {
+
+    }
+
+    @Override
+    public void onItemDeleted() {
+
+    }
+
+
+    /**
+     * helper class to solve a bug in recyclerview
+     */
+    private static class NpaLinearLayoutManager extends LinearLayoutManager {
+
+        public NpaLinearLayoutManager(Context context) {
+            super(context);
+        }
+
+        /**
+         * Disable predictive animations. There is a bug in RecyclerView which causes views that
+         * are being reloaded to pull invalid ViewHolders from the internal recycler stack if the
+         * adapter size has decreased since the ViewHolder was recycled.
+         */
+        @Override
+        public boolean supportsPredictiveItemAnimations() {
+            return false;
+        }
+    }
+
 
 }
