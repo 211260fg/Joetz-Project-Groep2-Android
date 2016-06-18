@@ -283,6 +283,13 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
             tabSpec.setContent(new FakeContent(MainActivity.this));
             tabHost.addTab(tabSpec);
         }
+
+        for(int i=0; i<resources.length; i++) {
+            View v = tabHost.getTabWidget().getChildAt(i);
+            v.getLayoutParams().height = 200;
+            v.setPadding(0,78,0,0);
+        }
+
         tabHost.setOnTabChangedListener(this);
 
         TabWidget widget = tabHost.getTabWidget();
