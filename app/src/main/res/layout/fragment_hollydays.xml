@@ -3,14 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/listview_bg"
     tools:context="groep2.joetz.com.joetz_project_groep2_test.fragments.HollydaysFragment">
 
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/vacationsRecyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/vacationsRecyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:padding="3dp"
+        android:background="@drawable/listview_bg"
+        android:clipToPadding="false" />
 
 </LinearLayout>

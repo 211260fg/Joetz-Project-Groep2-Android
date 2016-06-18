@@ -2,6 +2,7 @@ package groep2.joetz.com.joetz_project_groep2_test.activities;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.AssetManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -32,6 +33,8 @@ import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -42,6 +45,7 @@ import groep2.joetz.com.joetz_project_groep2_test.fragments.ChatFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.HistoryFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.HollydaysFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.OnFragmentInteractionListener;
+import groep2.joetz.com.joetz_project_groep2_test.repository.Repository;
 import groep2.joetz.com.joetz_project_groep2_test.tabs.SlidingTabLayout;
 
 public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener, TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
@@ -94,6 +98,8 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         actionBarDrawerToggle.syncState();
+
+        createTestDataFromAssets();
 
         i++;
         // init tabhost
@@ -319,6 +325,29 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+
+    //TODO: TEST METHOD FOR TEMP DATA
+    private void createTestDataFromAssets(){
+        AssetManager assetManager = getAssets();
+            InputStream input;
+            try {
+                input = assetManager.open("testdata");
+
+                int size = input.available();
+                byte[] buffer = new byte[size];
+                input.read(buffer);
+                input.close();
+
+                String text = new String(buffer);
+
+                Log.d("test data", text);
+                Repository.loadTestData(text);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
     }
 
 

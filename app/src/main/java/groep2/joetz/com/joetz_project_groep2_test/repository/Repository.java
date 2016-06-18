@@ -1,5 +1,9 @@
 package groep2.joetz.com.joetz_project_groep2_test.repository;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,15 +21,13 @@ public class Repository {
 
     //---------------------------//
 
-    static{
-        initTestData();
-    }
+    public static void loadTestData(String json){
 
-    //---------------------------//
+        Gson gson = new Gson();
+        Type listType = new TypeToken<List<Vakantie>>() {}.getType();
+        List<Vakantie> testdata = (List<Vakantie>) gson.fromJson(json, listType);
 
-    private static void initTestData(){
-        Vakantie v1 = new Vakantie("testtitle", "testdescription", new Date(), new Date(), "testlocation", Category.NO_CATEGORY, 0);
-        items.add(v1);
+        onItemsLoaded(testdata);
     }
 
     //---------------------------//
@@ -48,8 +50,10 @@ public class Repository {
 
     //---------------------------//
 
+    //TODO uitwerken
     public static void loadItems(){
 
+        onItemsLoaded(items);
     }
 
     //--------------------------//

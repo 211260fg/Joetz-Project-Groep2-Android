@@ -1,6 +1,10 @@
 package groep2.joetz.com.joetz_project_groep2_test.model;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by floriangoeteyn on 26-May-16.
@@ -10,23 +14,14 @@ public class Vakantie {
     private String title;
     private String description;
     private String extra_info="";
-    private Date startDate;
-    private Date endDate;
+    private String header_img="";
+    private String startDate;
+    private String endDate;
     private int minAge = 0;
     private int maxAge = 0;
     private String location;
     private Category category;
     private double price;
-
-    public Vakantie(String title, String description, Date startDate, Date endDate, String location, Category category, double price) {
-        this.title = title;
-        this.description = description;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.location = location;
-        this.category = category;
-        this.price = price;
-    }
 
     public String getTitle() {
         return title;
@@ -37,11 +32,11 @@ public class Vakantie {
     }
 
     public Date getStartDate() {
-        return startDate;
+        return parseStringToDate(startDate);
     }
 
     public Date getEndDate() {
-        return endDate;
+        return parseStringToDate(endDate);
     }
 
     public int getMinAge() {
@@ -66,5 +61,20 @@ public class Vakantie {
 
     public String getExtra_info() {
         return extra_info;
+    }
+
+    private Date parseStringToDate(String datestr){
+        DateFormat df = new SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH);
+        Date date = null;
+        try {
+            date = df.parse(datestr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
+    public String getHeader_img() {
+        return header_img;
     }
 }

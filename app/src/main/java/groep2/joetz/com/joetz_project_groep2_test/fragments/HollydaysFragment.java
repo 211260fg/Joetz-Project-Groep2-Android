@@ -50,6 +50,7 @@ public class HollydaysFragment extends Fragment implements OnItemsLoadedListener
     public void onStart() {
         super.onStart();
         Repository.registerListener(this);
+        Repository.loadItems();
     }
 
     @Override
@@ -88,7 +89,7 @@ public class HollydaysFragment extends Fragment implements OnItemsLoadedListener
 
     @Override
     public void onItemsLoaded() {
-
+        adapter.notifyDataSetChanged();
     }
 
     @Override

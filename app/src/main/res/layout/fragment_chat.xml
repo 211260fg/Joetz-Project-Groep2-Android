@@ -5,12 +5,12 @@
     android:orientation="vertical"
     tools:context="groep2.joetz.com.joetz_project_groep2_test.fragments.ChatFragment">
 
-
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/chatLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="40dp"
         android:background="@drawable/listview_bg"
         android:clipToPadding="false" />
 

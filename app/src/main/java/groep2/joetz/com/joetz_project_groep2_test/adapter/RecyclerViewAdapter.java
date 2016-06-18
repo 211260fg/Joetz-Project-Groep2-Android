@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +38,7 @@ public class RecyclerViewAdapter  extends RecyclerView.Adapter<RecyclerViewAdapt
 
     //doorgeven van de fragmentInteractionListener en items
     public RecyclerViewAdapter(List<Vakantie> items, OnFragmentInteractionListener mListener, Context context) {
-        this.items = new ArrayList<>(items);
+        this.items = items;
         this.mListener = mListener;
         RecyclerViewAdapter.context = context;
     }
@@ -46,7 +49,7 @@ public class RecyclerViewAdapter  extends RecyclerView.Adapter<RecyclerViewAdapt
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_item, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_vacation, viewGroup, false);
         return new ItemViewHolder(v);
     }
 
@@ -63,16 +66,18 @@ public class RecyclerViewAdapter  extends RecyclerView.Adapter<RecyclerViewAdapt
         final Vakantie item = items.get(i);
 
         itemViewHolder.itemTitle.setText(item.getTitle());
-        itemViewHolder.itemDescription.setText(item.getDescription());
-        itemViewHolder.itemCount.setText("" + (i + 1));
+        itemViewHolder.itemLocation.setText(item.getLocation());
+        itemViewHolder.itemAge.setText("van " + item.getMinAge() + " t.e.m. " + item.getMaxAge() + " jaar");
         if (item.getStartDate() != null)
-            itemViewHolder.itemDateTime.setText(new SimpleDateFormat("dd/MM HH:mm", Locale.ENGLISH).format(item.getStartDate()));
+            itemViewHolder.itemStartDate.setText(new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(item.getStartDate()));
+        if (item.getStartDate() != null)
+            itemViewHolder.itemEndDate.setText(new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(item.getEndDate()));
 
+        Glide.with(context).load(item.getHeader_img()).override(500,250).centerCrop().into(itemViewHolder.itemImage);
+        Glide.with(context).load(item.getCategory().getImg_src()).override(50,50).centerCrop().into(itemViewHolder.itemCategory);
 
-        GradientDrawable gd = new GradientDrawable();
-        gd.setCornerRadius(5);
-
-        itemViewHolder.itemView.setBackground(gd);
+        /*Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(itemViewHolder.itemImage);
+        Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(itemViewHolder.itemCategory);*/
 
         //onclicklistener voor de items in de recyclerview (item op kaart)
         itemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -98,20 +103,25 @@ public class RecyclerViewAdapter  extends RecyclerView.Adapter<RecyclerViewAdapt
     //itemviewholder: custom layout voor items
     public static class ItemViewHolder extends RecyclerView.ViewHolder{
         CardView cv;
-        ImageView itemIcon;
         TextView itemTitle;
-        TextView itemDescription;
-        TextView itemCount;
-        TextView itemDateTime;
+        TextView itemLocation;
+        TextView itemAge;
+        TextView itemStartDate;
+        TextView itemEndDate;
+        ImageView itemImage;
+        ImageView itemCategory;
+
 
         ItemViewHolder(View itemView) {
             super(itemView);
             cv = (CardView) itemView.findViewById(R.id.itemCardView);
             itemTitle = (TextView) itemView.findViewById(R.id.itemTitle);
-            itemDescription = (TextView) itemView.findViewById(R.id.itemDescription);
-            itemCount = (TextView) itemView.findViewById(R.id.itemCount);
-            itemDateTime = (TextView) itemView.findViewById(R.id.itemDateTime);
-
+            itemLocation = (TextView) itemView.findViewById(R.id.itemlocation);
+            itemAge = (TextView) itemView.findViewById(R.id.itemage);
+            itemStartDate = (TextView) itemView.findViewById(R.id.itemstartdate);
+            itemEndDate = (TextView) itemView.findViewById(R.id.itemenddate);
+            itemImage = (ImageView) itemView.findViewById(R.id.itemimage);
+            itemCategory = (ImageView) itemView.findViewById(R.id.itemCategory);
         }
     }
 }
