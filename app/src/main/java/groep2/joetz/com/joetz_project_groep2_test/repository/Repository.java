@@ -25,7 +25,7 @@ public class Repository {
 
         Gson gson = new Gson();
         Type listType = new TypeToken<List<Vakantie>>() {}.getType();
-        List<Vakantie> testdata = (List<Vakantie>) gson.fromJson(json, listType);
+        List<Vakantie> testdata = gson.fromJson(json, listType);
 
         onItemsLoaded(testdata);
     }

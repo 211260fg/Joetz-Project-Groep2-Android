@@ -342,7 +342,6 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
                 String text = new String(buffer);
 
-                Log.d("test data", text);
                 Repository.loadTestData(text);
             } catch (IOException e) {
                 // TODO Auto-generated catch block

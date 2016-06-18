@@ -73,7 +73,7 @@ public class RecyclerViewAdapter  extends RecyclerView.Adapter<RecyclerViewAdapt
         if (item.getStartDate() != null)
             itemViewHolder.itemEndDate.setText(new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(item.getEndDate()));
 
-        Glide.with(context).load(item.getHeader_img()).override(500,250).centerCrop().into(itemViewHolder.itemImage);
+        Glide.with(context).load(item.getHeader_img()).override(500,200).centerCrop().into(itemViewHolder.itemImage);
         Glide.with(context).load(item.getCategory().getImg_src()).override(50,50).centerCrop().into(itemViewHolder.itemCategory);
 
         /*Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(itemViewHolder.itemImage);

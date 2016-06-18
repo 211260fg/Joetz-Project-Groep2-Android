@@ -5,13 +5,20 @@
     android:orientation="vertical"
     tools:context="groep2.joetz.com.joetz_project_groep2_test.fragments.HollydaysFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/vacationsRecyclerview"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:padding="3dp"
-        android:background="@drawable/listview_bg"
-        android:clipToPadding="false" />
+        android:layout_height="match_parent"
+        android:layout_margin="30dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/vacationsRecyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/listview_bg"
+            android:clipToPadding="false"
+            android:padding="3dp" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

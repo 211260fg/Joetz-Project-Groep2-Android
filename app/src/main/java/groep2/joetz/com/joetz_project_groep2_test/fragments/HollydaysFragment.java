@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +26,8 @@ public class HollydaysFragment extends Fragment implements OnItemsLoadedListener
     private RecyclerView rv;
     private RecyclerViewAdapter adapter;
 
+    private SwipeRefreshLayout swipeRefreshLayout;
+
     private View rootView;
 
     public static HollydaysFragment getNewInstance() {
@@ -38,8 +41,16 @@ public class HollydaysFragment extends Fragment implements OnItemsLoadedListener
         rootView = inflater.inflate(R.layout.fragment_hollydays, container, false);
 
         rv = (RecyclerView) rootView.findViewById(R.id.vacationsRecyclerview);
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
 
         createItemView();
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Repository.loadItems();
+            }
+        });
 
         return rootView;
 
@@ -85,11 +96,12 @@ public class HollydaysFragment extends Fragment implements OnItemsLoadedListener
 
 
 
-
-
     @Override
     public void onItemsLoaded() {
-        adapter.notifyDataSetChanged();
+        if(swipeRefreshLayout!=null)
+            swipeRefreshLayout.setRefreshing(false);
+        if(adapter!=null)
+            adapter.notifyDataSetChanged();
     }
 
     @Override
