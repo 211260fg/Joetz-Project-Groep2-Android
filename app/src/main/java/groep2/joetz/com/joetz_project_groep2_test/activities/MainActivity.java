@@ -103,10 +103,10 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
         i++;
         // init tabhost
-        this.initializeTabHost();
+        initializeTabHost();
 
         // init ViewPager
-        this.initializeViewPager();
+        initializeViewPager();
 
         setupFAB();
 
@@ -269,7 +269,17 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         this.viewPager.setAdapter(this.myViewPagerAdapter);
         this.viewPager.setOnPageChangeListener(this);
 
+        viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                tabHost.setCurrentTab(position);
+
+            }
+        });
+
         onRestart();
+
+
     }
 
     private void initializeTabHost() {

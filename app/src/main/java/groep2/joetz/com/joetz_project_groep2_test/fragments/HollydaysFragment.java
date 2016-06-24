@@ -2,11 +2,13 @@ package groep2.joetz.com.joetz_project_groep2_test.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -84,11 +86,14 @@ public class HollydaysFragment extends Fragment implements OnItemsLoadedListener
 
     private void createItemView() {
         //opbouw van de adapter voor de recyclerview
-        LinearLayoutManager llm = new NpaLinearLayoutManager(getContext());
-        rv.setLayoutManager(llm);
+        if(getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            rv.setLayoutManager(new NpaLinearLayoutManager(getContext()));
+        }
+        else{
+            rv.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        }
 
         adapter = new RecyclerViewAdapter(Repository.getItems(), mListener, getContext());
-        Log.d("items size", ""+Repository.getItems().size());
         rv.setAdapter(adapter);
 
         rv.setItemAnimator(new DefaultItemAnimator());
