@@ -1,17 +1,15 @@
 package groep2.joetz.com.joetz_project_groep2_test.activities;
 
-import android.content.Context;
+
+import android.support.v4.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.res.AssetManager;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.ContextThemeWrapper;
-import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,13 +40,14 @@ import java.util.Vector;
 import groep2.joetz.com.joetz_project_groep2_test.R;
 import groep2.joetz.com.joetz_project_groep2_test.adapter.MyFragmentPagerAdapter;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.ChatFragment;
+import groep2.joetz.com.joetz_project_groep2_test.fragments.ContainerFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.HistoryFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.HollydaysFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.OnFragmentInteractionListener;
+import groep2.joetz.com.joetz_project_groep2_test.fragments.VacationFragment;
 import groep2.joetz.com.joetz_project_groep2_test.repository.Repository;
-import groep2.joetz.com.joetz_project_groep2_test.tabs.SlidingTabLayout;
 
-public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener, TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
+public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener, TabHost.OnTabChangeListener{
 
     private Toolbar toolbar;
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
     private TabHost tabHost;
     private ViewPager viewPager;
-    private MyFragmentPagerAdapter myViewPagerAdapter;
+    private MyFragmentPagerAdapter myFragmentPagerAdapter;
     int i = 0;
 
     private FloatingActionButton mFAB;
@@ -65,6 +64,11 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     private static final String TAG_SORT_AGE = "sortAge";
     private static final String TAG_SORT_DATE = "sortDate";
     private static final String TAG_SORT_EXTRA = "sortExtra";
+
+    private HollydaysFragment hollydaysFragment;
+    private HistoryFragment historyFragment;
+    private VacationFragment vacationFragment;
+    private ChatFragment chatFragment;
 
 
     private final CharSequence[] periodes = {"Zomervakantie", "Herfstvakantie", "Kerstvakantie"};
@@ -80,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //singlePaneLayout = (FrameLayout) findViewById(R.id.fragmentlayout);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         drawerLayout = (DrawerLayout) findViewById(R.id.navigation_drawer);
 
@@ -191,10 +195,40 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     @Override
     public void onFragmentInteraction(int pos) {
 
+        /*if (vacationFragment == null || !(vacationFragment.isVisible())) {
+
+            vacationFragment = VacationFragment.getNewInstance();
+
+            getSupportFragmentManager().beginTransaction()
+                    .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
+                    .replace(R.id.viewPager, vacationFragment).commit();
+        }*/
+
+        //FragmentTransaction trans = getFragmentManager().beginTransaction();
+        FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+
+				/*
+				 * IMPORTANT: We use the "root frame" defined in
+				 * "root_fragment.xml" as the reference to replace fragment
+				 */
+        trans.replace(R.id.container_frame, VacationFragment.getNewInstance());
+
+				/*
+				 * IMPORTANT: The following lines allow us to add the fragment
+				 * to the stack and return to it later, by pressing back
+				 */
+        trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        trans.addToBackStack(null);
+
+        trans.commit();
+
     }
 
 
-    private AlertDialog.Builder builder;
+
+
+
+private AlertDialog.Builder builder;
 
     private void buildFilterDialog(String title, CharSequence[] items) {
 
@@ -260,14 +294,14 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     private void initializeViewPager() {
         List<Fragment> fragments = new Vector<>();
 
-        fragments.add(HollydaysFragment.getNewInstance());
+        //fragments.add(HollydaysFragment.getNewInstance());
+        fragments.add(new ContainerFragment());
         fragments.add(HistoryFragment.getNewInstance());
         fragments.add(ChatFragment.getNewInstance());
 
-        this.myViewPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), fragments);
+        myFragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), fragments);
         this.viewPager = (ViewPager) super.findViewById(R.id.viewPager);
-        this.viewPager.setAdapter(this.myViewPagerAdapter);
-        this.viewPager.setOnPageChangeListener(this);
+        this.viewPager.setAdapter(myFragmentPagerAdapter);
 
         viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -290,7 +324,15 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         for (int resource: resources) {
             TabHost.TabSpec tabSpec  = tabHost.newTabSpec("Tab " + i);
             tabSpec.setIndicator("", getDrawable(resource));
-            tabSpec.setContent(new FakeContent(MainActivity.this));
+            tabSpec.setContent(new TabHost.TabContentFactory() {
+                @Override
+                public View createTabContent(String tag) {
+                    View v = new View(MainActivity.this);
+                    v.setMinimumHeight(0);
+                    v.setMinimumWidth(0);
+                    return v;
+                }
+            });
             tabHost.addTab(tabSpec);
         }
 
@@ -303,7 +345,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         tabHost.setOnTabChangedListener(this);
 
         TabWidget widget = tabHost.getTabWidget();
-        for(int i = 0; i < widget.getChildCount(); i++) {
+        for (int i = 0; i < widget.getChildCount(); i++) {
             View v = widget.getChildAt(i);
 
             // Look for the title view to ensure this is an indicator and not a divider.
@@ -329,21 +371,6 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
     }
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-
 
     //TODO: TEST METHOD FOR TEMP DATA
     private void createTestDataFromAssets(){
@@ -361,27 +388,8 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
                 Repository.loadTestData(text);
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-    }
-
-
-    // fake content for tabhost
-    class FakeContent implements TabHost.TabContentFactory {
-        private final Context mContext;
-
-        public FakeContent(Context context) {
-            mContext = context;
-        }
-
-        @Override
-        public View createTabContent(String tag) {
-            View v = new View(mContext);
-            v.setMinimumHeight(0);
-            v.setMinimumWidth(0);
-            return v;
-        }
     }
 
 

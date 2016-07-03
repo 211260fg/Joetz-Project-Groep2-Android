@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -96,6 +98,29 @@ public class HollydaysFragment extends Fragment implements OnItemsLoadedListener
         adapter = new RecyclerViewAdapter(Repository.getItems(), mListener, getContext());
         rv.setAdapter(adapter);
 
+        /*rv.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+
+                VacationFragment  articleFragment = VacationFragment.getNewInstance();
+                fragmentTransaction.add(articleFragment, "abc");
+                fragmentTransaction.hide(HollydaysFragment.this);
+                fragmentTransaction.addToBackStack(HollydaysFragment.class.getName());
+
+                fragmentTransaction.commit();
+                return true;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });*/
         rv.setItemAnimator(new DefaultItemAnimator());
     }
 
