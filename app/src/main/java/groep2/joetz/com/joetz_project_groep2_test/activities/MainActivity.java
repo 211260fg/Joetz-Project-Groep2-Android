@@ -1,6 +1,7 @@
 package groep2.joetz.com.joetz_project_groep2_test.activities;
 
 
+import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.res.AssetManager;
@@ -45,10 +46,12 @@ import groep2.joetz.com.joetz_project_groep2_test.fragments.ChatFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.ContainerFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.HistoryFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.HollydaysFragment;
+import groep2.joetz.com.joetz_project_groep2_test.fragments.LoginFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.MainFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.OnFragmentInteractionListener;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.VacationFragment;
 import groep2.joetz.com.joetz_project_groep2_test.repository.Repository;
+import groep2.joetz.com.joetz_project_groep2_test.session.UserSessionManager;
 
 public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener{
 
@@ -63,6 +66,14 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        UserSessionManager session = new UserSessionManager(getApplicationContext());
+        if(!session.checkLogin()&& LoginFragment.testIsLoggedIn) {
+            finish();
+            return;
+        }
+
+
         setContentView(R.layout.activity_main);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
