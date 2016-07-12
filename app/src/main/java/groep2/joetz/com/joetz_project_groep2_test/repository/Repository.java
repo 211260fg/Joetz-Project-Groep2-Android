@@ -21,16 +21,6 @@ public class Repository {
     private static List<OnItemsLoadedListener> listeners = new ArrayList<>();
     private static List<Vakantie> items = new ArrayList<>();
 
-    //---------------------------//
-
-    public static void loadTestData(String json){
-
-        Gson gson = new Gson();
-        Type listType = new TypeToken<List<Vakantie>>() {}.getType();
-        List<Vakantie> testdata = gson.fromJson(json, listType);
-
-        onItemsLoaded(testdata);
-    }
 
     //---------------------------//
 
@@ -52,12 +42,9 @@ public class Repository {
 
     //---------------------------//
 
-    //TODO uitwerken
     public static void loadItems(){
-
         items= new ArrayList<>();
         new ItemLoader();
-        //onItemsLoaded(items);
     }
 
     //--------------------------//

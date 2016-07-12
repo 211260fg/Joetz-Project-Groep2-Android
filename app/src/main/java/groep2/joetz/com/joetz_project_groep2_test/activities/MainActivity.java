@@ -139,32 +139,11 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     @Override
     public void onBackPressed() {
 
-        if (mainFragment!=null && mainFragment.isVisible()) { // and then you define a method allowBackPressed with the logic to allow back pressed or not
+        if (mainFragment!=null && mainFragment.isVisible()) {
             mainFragment.onBackPressed();
         }
 
         super.onBackPressed();
-    }
-
-
-    //TODO: TEST METHOD FOR TEMP DATA
-    private void createTestDataFromAssets(){
-        AssetManager assetManager = getAssets();
-            InputStream input;
-            try {
-                input = assetManager.open("testdata");
-
-                int size = input.available();
-                byte[] buffer = new byte[size];
-                input.read(buffer);
-                input.close();
-
-                String text = new String(buffer);
-
-                Repository.loadTestData(text);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
     }
 
 }
