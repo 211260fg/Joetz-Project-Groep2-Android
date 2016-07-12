@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.view.ContextThemeWrapper;
 import android.util.Log;
 import android.util.Pair;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -175,6 +176,18 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         }
     }
 
+    private void toggleFABVisibility(boolean isVisible){
+        if(isVisible){
+            mFAB.animate().alpha(1.0f);
+            mFAB.animate().translationY(0);
+            mFAB.setEnabled(true);
+        }else {
+            mFAB.animate().alpha(0.0f);
+            mFAB.animate().translationY(mFAB.getHeight());
+            mFAB.setEnabled(false);
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -207,18 +220,31 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
         if(pos>-1) {
 
+            vacationFragment = VacationFragment.getNewInstance(pos);
+
             FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
 
-            trans.replace(R.id.container_frame, VacationFragment.getNewInstance(pos));
+            trans.replace(R.id.container_frame, vacationFragment);
 
             trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             trans.addToBackStack(null);
-
             trans.commit();
+
+            toggleFABVisibility(false);
         }else{
             getSupportFragmentManager().popBackStackImmediate();
+            toggleFABVisibility(true);
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        super.onBackPressed();
+        if (vacationFragment!=null && vacationFragment.isVisible()) { // and then you define a method allowBackPressed with the logic to allow back pressed or not
+            toggleFABVisibility(true);
+        }
     }
 
 

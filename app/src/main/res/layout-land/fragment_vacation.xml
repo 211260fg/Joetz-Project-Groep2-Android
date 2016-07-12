@@ -1,102 +1,114 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vacationlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/vacationlayout"
     android:layout_margin="36dp"
-    android:padding="6dp"
     android:background="@drawable/listview_bg"
     android:clipToPadding="false"
+    android:orientation="vertical"
+    android:padding="6dp"
     tools:context="groep2.joetz.com.joetz_project_groep2_test.fragments.HistoryFragment">
 
 
-        <TextView
-            android:id="@+id/vactionTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textColor="@color/maintheme"
-            android:textSize="18sp"/>
+    <TextView
+        android:id="@+id/vactionTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/maintheme"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
 
         <ScrollView
+            android:layout_weight="2"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:fadeScrollbars="false">
-        <TextView
-            android:id="@+id/vactionDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/vactionDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
         </ScrollView>
 
 
-    <View
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/transparent_white"/>
-
         <LinearLayout
-            android:orientation="vertical"
+            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/itemstartdate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="startdate"/>
+                android:text="startdate"
+                android:textSize="12sp" />
+
             <TextView
                 android:id="@+id/itemenddate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="enddate"/>
+                android:text="enddate"
+                android:textSize="12sp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/transparent_white"/>
+                android:background="@color/transparent_white" />
+
             <TextView
                 android:id="@+id/itemage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="age"/>
+                android:text="age"
+                android:textSize="12sp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/transparent_white"/>
+                android:background="@color/transparent_white" />
+
             <TextView
                 android:id="@+id/itemlocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="location"/>
+                android:text="location"
+                android:textSize="12sp" />
 
         </LinearLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/btnGoBack"
-            android:textColor="@color/maintheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
-            android:text="Terug"/>
+            android:text="Terug"
+            android:textColor="@color/maintheme" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
             android:backgroundTint="@color/maintheme"
-            android:text="Inschrijven"/>
+            android:text="Inschrijven"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
