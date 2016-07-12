@@ -294,8 +294,8 @@ public class MainFragment extends Fragment  implements OnFragmentInteractionList
         viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
+                mFABMenu.close(true);
                 tabHost.setCurrentTab(position);
-
             }
         });
 
