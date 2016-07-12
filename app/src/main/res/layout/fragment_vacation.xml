@@ -17,8 +17,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textSize="18sp"
-            android:text="test"/>
+            android:textColor="@color/maintheme"
+            android:textSize="18sp"/>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -26,16 +26,15 @@
         <TextView
             android:id="@+id/vactionDescription"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Voor rock-, pop-, en rapsterren in spe! Speel je al een instrument of heb je een dijk van een stem? Iedereen met spelervaring is welkom. Kennis van akkoorden is gewenst maar niet verplicht …
-Samen met professionele muzikanten en onder de hoede van producer Tim Kermans jammen we er op los.erren in spe! Speel je al een instrument of heb je een dijk van een stem? Iedereen met spelervaring is welkom. Kennis van akkoorden is gewenst maar niet verplicht …
-Samen met professionele muzikanten en onder de hoede van producer Tim Kermans jammen we er op los. We vormen een banerren in spe! Speel je al een instrument of heb je een dijk van een stem? Iedereen met spelervaring is welkom. Kennis van akkoorden is gewenst maar niet verplicht …
-Samen met professionele muzikanten en onder de hoede van producer Tim Kermans jammen we er op los. We vormen een banerren in spe! Speel je al een instrument of heb je een dijk van een stem? Iedereen met spelervaring is welkom. Kennis van akkoorden is gewenst maar niet verplicht …
-Samen met professionele muzikanten en onder de hoede van producer Tim Kermans jammen we er op los. We vormen een banerren in spe! Speel je al een instrument of heb je een dijk van een stem? Iedereen met spelervaring is welkom. Kennis van akkoorden is gewenst maar niet verplicht …
-Samen met professionele muzikanten en onder de hoede van producer Tim Kermans jammen we er op los. We vormen een banerren in spe! Speel je al een instrument of heb je een dijk van een stem? Iedereen met spelervaring is welkom. Kennis van akkoorden is gewenst maar niet verplicht …
-Samen met professionele muzikanten en onder de hoede van producer Tim Kermans jammen we er op los. We vormen een ban We vormen een band en we spelen gedurende een week de pannen van het dak! We zetten jullie geweldige creaties vervolgens op CD. Het wordt een week die je nooit zal vergeten. Vrijdagavond sluiten we af met een optreden voor ouders, fans en groupies. Rock on!"/>
-
+            android:layout_height="wrap_content"/>
         </ScrollView>
+
+
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/transparent_white"/>
 
         <LinearLayout
             android:orientation="vertical"
@@ -46,27 +45,58 @@ Samen met professionele muzikanten en onder de hoede van producer Tim Kermans ja
                 android:id="@+id/itemstartdate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="test"/>
+                android:textSize="12sp"
+                android:text="startdate"/>
             <TextView
                 android:id="@+id/itemenddate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="test"/>
+                android:textSize="12sp"
+                android:text="enddate"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/transparent_white"/>
             <TextView
-                android:id="@+id/itemimage"
+                android:id="@+id/itemage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="test"/>
+                android:textSize="12sp"
+                android:text="age"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/transparent_white"/>
             <TextView
                 android:id="@+id/itemlocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="test"/>
-
+                android:textSize="12sp"
+                android:text="location"/>
 
         </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnGoBack"
+            android:textColor="@color/maintheme"
+            android:backgroundTint="@color/white"
+            android:text="Terug"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/maintheme"
+            android:text="Inschrijven"/>
+
+    </LinearLayout>
+
 </LinearLayout>

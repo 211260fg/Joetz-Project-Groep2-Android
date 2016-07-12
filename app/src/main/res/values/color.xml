@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <item name="white" type="color">#FFFFFF</item>
     <item name="transparent_white" type="color">#DDFFFFFF</item>
     <item name="transparent_black" type="color">#BB000000</item>
     <item name="maintheme" type="color">#DA002F</item>

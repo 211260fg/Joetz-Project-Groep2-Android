@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.ContextThemeWrapper;
+import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -204,23 +205,19 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
                     .replace(R.id.viewPager, vacationFragment).commit();
         }*/
 
-        //FragmentTransaction trans = getFragmentManager().beginTransaction();
-        FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+        if(pos>-1) {
 
-				/*
-				 * IMPORTANT: We use the "root frame" defined in
-				 * "root_fragment.xml" as the reference to replace fragment
-				 */
-        trans.replace(R.id.container_frame, VacationFragment.getNewInstance());
+            FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
 
-				/*
-				 * IMPORTANT: The following lines allow us to add the fragment
-				 * to the stack and return to it later, by pressing back
-				 */
-        trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        trans.addToBackStack(null);
+            trans.replace(R.id.container_frame, VacationFragment.getNewInstance(pos));
 
-        trans.commit();
+            trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            trans.addToBackStack(null);
+
+            trans.commit();
+        }else{
+            getSupportFragmentManager().popBackStackImmediate();
+        }
 
     }
 

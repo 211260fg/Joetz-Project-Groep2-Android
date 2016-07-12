@@ -15,19 +15,13 @@ import groep2.joetz.com.joetz_project_groep2_test.R;
  */
 public class ContainerFragment extends Fragment {
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-		/* Inflate the layout for this fragment */
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_container, container, false);
 
-        FragmentTransaction transaction = getFragmentManager()
-                .beginTransaction();
-		/*
-		 * When this container fragment is created, we fill it with our first
-		 * "real" fragment
-		 */
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
         transaction.replace(R.id.container_frame, new HollydaysFragment());
 
         transaction.commit();
