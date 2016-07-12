@@ -4,7 +4,8 @@
     <item name="transparent_white" type="color">#DDFFFFFF</item>
     <item name="transparent_black" type="color">#BB000000</item>
     <item name="maintheme" type="color">#DA002F</item>
-    <item name="transparent_maintheme" type="color">#CCDA002F</item>
+    <item name="semitransparent_maintheme" type="color">#EEDA002F</item>
+    <item name="transparent_maintheme" type="color">#CCDA0019</item>
 
     <color name="primary">#E43F3F</color>
     <color name="primary_dark">#E12929</color>

@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import groep2.joetz.com.joetz_project_groep2_test.loader.ItemLoader;
 import groep2.joetz.com.joetz_project_groep2_test.model.Category;
+import groep2.joetz.com.joetz_project_groep2_test.model.User;
 import groep2.joetz.com.joetz_project_groep2_test.model.Vakantie;
 
 /**
@@ -53,7 +55,9 @@ public class Repository {
     //TODO uitwerken
     public static void loadItems(){
 
-        onItemsLoaded(items);
+        items= new ArrayList<>();
+        new ItemLoader();
+        //onItemsLoaded(items);
     }
 
     //--------------------------//
@@ -66,6 +70,18 @@ public class Repository {
     public static void onLoadFailed(){
         notifyListenersLoadFailed();
     }
+
+    //--------------------------//
+
+
+    public static void onLoginSuccess(User user){
+
+    }
+
+    public static void onLoginFailed(){
+
+    }
+
 
     //--------------------------//
 

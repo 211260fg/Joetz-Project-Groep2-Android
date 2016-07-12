@@ -102,8 +102,8 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         actionBarDrawerToggle.syncState();
 
-        createTestDataFromAssets();
-
+        //createTestDataFromAssets();
+        Repository.loadItems();
     }
 
 

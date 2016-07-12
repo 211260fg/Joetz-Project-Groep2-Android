@@ -5,11 +5,11 @@ package groep2.joetz.com.joetz_project_groep2_test.model;
  */
 public class Category {
 
-    String catNaam;
+    String catName;
     String img_src;
 
     public String getCatNaam() {
-        return catNaam;
+        return catName;
     }
 
     public String getImg_src() {

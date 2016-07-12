@@ -39,6 +39,7 @@ public class HollydaysFragment extends Fragment implements OnItemsLoadedListener
     }
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -47,14 +48,13 @@ public class HollydaysFragment extends Fragment implements OnItemsLoadedListener
         rv = (RecyclerView) rootView.findViewById(R.id.vacationsRecyclerview);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
 
-        createItemView();
-
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 Repository.loadItems();
             }
         });
+        swipeRefreshLayout.setColorSchemeResources(R.color.maintheme);
 
         return rootView;
 
@@ -65,7 +65,7 @@ public class HollydaysFragment extends Fragment implements OnItemsLoadedListener
     public void onStart() {
         super.onStart();
         Repository.registerListener(this);
-        Repository.loadItems();
+        createItemView();
     }
 
     @Override
@@ -88,6 +88,10 @@ public class HollydaysFragment extends Fragment implements OnItemsLoadedListener
 
     private void createItemView() {
         //opbouw van de adapter voor de recyclerview
+        adapter = new RecyclerViewAdapter(Repository.getItems(), mListener, getContext());
+        rv.setAdapter(adapter);
+
+
         if(getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             rv.setLayoutManager(new NpaLinearLayoutManager(getContext()));
         }
@@ -95,32 +99,6 @@ public class HollydaysFragment extends Fragment implements OnItemsLoadedListener
             rv.setLayoutManager(new GridLayoutManager(getContext(), 2));
         }
 
-        adapter = new RecyclerViewAdapter(Repository.getItems(), mListener, getContext());
-        rv.setAdapter(adapter);
-
-        /*rv.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-            @Override
-            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-
-                VacationFragment  articleFragment = VacationFragment.getNewInstance();
-                fragmentTransaction.add(articleFragment, "abc");
-                fragmentTransaction.hide(HollydaysFragment.this);
-                fragmentTransaction.addToBackStack(HollydaysFragment.class.getName());
-
-                fragmentTransaction.commit();
-                return true;
-            }
-
-            @Override
-            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-            }
-        });*/
         rv.setItemAnimator(new DefaultItemAnimator());
     }
 
@@ -136,7 +114,10 @@ public class HollydaysFragment extends Fragment implements OnItemsLoadedListener
 
     @Override
     public void onLoadFailed() {
-
+        if(swipeRefreshLayout!=null)
+            swipeRefreshLayout.setRefreshing(false);
+        if(adapter!=null)
+            adapter.notifyDataSetChanged();
     }
 
     @Override

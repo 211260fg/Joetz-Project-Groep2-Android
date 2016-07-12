@@ -21,7 +21,7 @@ public class Vakantie {
     private int maxAge = 0;
     private String location;
     private Category category;
-    private double price;
+    private int price;
 
     public String getTitle() {
         return title;

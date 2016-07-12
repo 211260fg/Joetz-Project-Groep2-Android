@@ -4,6 +4,8 @@ package groep2.joetz.com.joetz_project_groep2_test.rest;
  * Created by floriangoeteyn on 26-May-16.
  */
 
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.OkHttpClient;
@@ -17,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import groep2.joetz.com.joetz_project_groep2_test.model.User;
 import groep2.joetz.com.joetz_project_groep2_test.model.Vakantie;
 import retrofit.Call;
 import retrofit.Callback;
@@ -30,10 +33,18 @@ import retrofit.http.GET;
 public class RestClient {
 
     private static Retrofit client;
-    private String baseurl="";
+    private String baseurl="https://api.myjson.com/bins";
 
     public RestClient(String username, String password){
         client = createClient();
+    }
+
+    public RestClient(){
+        client = createClient();
+    }
+
+    public UserApiInterface getUserClient(){
+        return client.create(UserApiInterface.class);
     }
 
     public ItemApiInterface getItemClient(){
@@ -48,6 +59,7 @@ public class RestClient {
         okClient.interceptors().add(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
+
                 /*final String credentials = username + ":" + password;
                 final String encodedCredentials = Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
                 final String basic = "Basic " + encodedCredentials;
@@ -57,13 +69,15 @@ public class RestClient {
                         //.addHeader("Authorization", basic)
                         .build();
                 Response response = chain.proceed(request);
+
+                //Log.w("Retrofit@Response", response.body().string());
+
                 return response;
             }
         });
 
-
         return new Retrofit.Builder()
-                .baseUrl(baseurl)
+                .baseUrl(Values.BASE_URL)
                 .addConverter(String.class, new ToStringConverter())
                 .client(okClient)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -71,8 +85,8 @@ public class RestClient {
     }
 
 
-    public List<Call<Vakantie>> getItemCalls(){
-        List<Call<Vakantie>> calls = new ArrayList<>();
+    public List<Call<List<Vakantie>>> getItemCalls(){
+        List<Call<List<Vakantie>>> calls = new ArrayList<>();
         calls.add(getItemClient().getVakanties());
         return calls;
     }
@@ -80,8 +94,14 @@ public class RestClient {
 
     public interface ItemApiInterface{
 
-        @GET("/vakanties")
-        Call<Vakantie> getVakanties();
+        @GET(Values.URL_VACATIONS)
+        Call<List<Vakantie>> getVakanties();
     }
+
+    public interface UserApiInterface{
+        @GET(Values.URL_USER)
+        Call<User> getUser();
+    }
+
 
 }
