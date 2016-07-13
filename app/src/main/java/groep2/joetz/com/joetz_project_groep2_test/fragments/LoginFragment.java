@@ -16,6 +16,8 @@ import groep2.joetz.com.joetz_project_groep2_test.R;
 import groep2.joetz.com.joetz_project_groep2_test.activities.AuthenticationActivity;
 import groep2.joetz.com.joetz_project_groep2_test.activities.MainActivity;
 import groep2.joetz.com.joetz_project_groep2_test.repository.OnLoggedInListener;
+import groep2.joetz.com.joetz_project_groep2_test.repository.Repository;
+import groep2.joetz.com.joetz_project_groep2_test.session.UserSessionManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,12 +33,16 @@ public class LoginFragment extends Fragment implements OnLoggedInListener{
 
     private View rootView;
 
+    UserSessionManager session;
+
     public static boolean testIsLoggedIn=false;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_login, container, false);
+
+        session = new UserSessionManager(getActivity().getApplicationContext());
 
         input_email = (EditText) rootView.findViewById(R.id.input_email);
         input_password = (EditText) rootView.findViewById(R.id.input_password);
@@ -47,34 +53,41 @@ public class LoginFragment extends Fragment implements OnLoggedInListener{
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent i = new Intent(getActivity(), MainActivity.class);
-                getActivity().startActivity(i);*/
                 login();
             }
         });
 
-        //TODO
+        //TODO VERWIJDEREN NA UITWERKING LOGIN
         Toast.makeText(getActivity(), "TEST: klik op aanmelden om de startpagina te bekijken", Toast.LENGTH_LONG).show();
 
 
         return rootView;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Repository.registerLoginListener(this);
+    }
+
     private void login(){
         if(!validateFields()){
             return;
         }
-        testIsLoggedIn=true;
-        getActivity().finish();
+        Repository.loginUser(input_email.getText().toString(), input_password.getText().toString());
     }
 
 
     public void onLoginSuccess(){
+        session.createUserLoginSession(input_email.getText().toString(), input_password.getText().toString());
 
+        Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+        startActivity(i);
+        getActivity().finish();
     }
 
     public void onLoginFailed(){
-
+        Toast.makeText(getActivity(), "NO USER FOUND", Toast.LENGTH_LONG).show();
     }
 
 

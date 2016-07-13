@@ -53,7 +53,6 @@ public class RestClient {
 
     private Retrofit createClient(){
 
-
         OkHttpClient okClient = new OkHttpClient();
 
         okClient.interceptors().add(new Interceptor() {

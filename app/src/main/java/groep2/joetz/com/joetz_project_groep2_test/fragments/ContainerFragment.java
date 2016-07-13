@@ -18,13 +18,13 @@ public class ContainerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+
         View view = inflater.inflate(R.layout.fragment_container, container, false);
+            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
 
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.container_frame, HollydaysFragment.getNewInstance());
 
-        transaction.replace(R.id.container_frame, new HollydaysFragment());
-
-        transaction.commit();
+            transaction.commit();
 
         return view;
     }

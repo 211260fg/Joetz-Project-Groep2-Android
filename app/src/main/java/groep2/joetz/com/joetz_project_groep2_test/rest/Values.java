@@ -5,13 +5,10 @@ package groep2.joetz.com.joetz_project_groep2_test.rest;
  */
 public abstract class Values {
 
-
-    /*public static final String BASE_URL = "https://api.myjson.com";
-    public static final String URL_VACATIONS = "/bins/1bdyn";
-    public static final String URL_USER = "/user";*/
+    //https://dl.dropboxusercontent.com/s/yls0w6u45qjaxgu/currentusertest.json?dl=0
 
     public static final String BASE_URL = "https://dl.dropboxusercontent.com";
     public static final String URL_VACATIONS = "/s/ldh135hhiehktmn/testdata.json?dl=0";
-    public static final String URL_USER = "/s/ldh135hhiehktmn/testdata.json?dl=0";
+    public static final String URL_USER = "/s/yls0w6u45qjaxgu/currentusertest.json?dl=0";
 
 }

@@ -6,7 +6,7 @@
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
 
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@color/primary_darker</item>
+        <item name="android:statusBarColor">@color/maintheme_dark</item>
 
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
@@ -15,7 +15,7 @@
         <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
 
         <item name="colorPrimary">@color/maintheme</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorPrimaryDark">@color/maintheme_dark</item>
         <item name="colorAccent">@color/accent</item>
 
         <item name="android:windowBackground">@color/white</item>

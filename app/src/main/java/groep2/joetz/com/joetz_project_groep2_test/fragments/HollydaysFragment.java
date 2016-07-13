@@ -46,6 +46,7 @@ public class HollydaysFragment extends Fragment implements OnItemsLoadedListener
         rootView = inflater.inflate(R.layout.fragment_hollydays, container, false);
 
         rv = (RecyclerView) rootView.findViewById(R.id.vacationsRecyclerview);
+
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -56,6 +57,8 @@ public class HollydaysFragment extends Fragment implements OnItemsLoadedListener
         });
         swipeRefreshLayout.setColorSchemeResources(R.color.maintheme);
 
+        //createItemView();
+
         return rootView;
 
     }
@@ -64,8 +67,9 @@ public class HollydaysFragment extends Fragment implements OnItemsLoadedListener
     @Override
     public void onStart() {
         super.onStart();
-        Repository.registerListener(this);
         createItemView();
+        Repository.registerListener(this);
+        Repository.loadItems();
     }
 
     @Override
@@ -87,25 +91,26 @@ public class HollydaysFragment extends Fragment implements OnItemsLoadedListener
 
 
     private void createItemView() {
-        //opbouw van de adapter voor de recyclerview
-        adapter = new RecyclerViewAdapter(Repository.getItems(), mListener, getContext());
-        rv.setAdapter(adapter);
+        if(getActivity()!=null) {
+            if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                rv.setLayoutManager(new NpaLinearLayoutManager(getContext()));
+            } else {
+                rv.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            }
 
+            adapter = new RecyclerViewAdapter(Repository.getItems(), mListener, getContext());
+            rv.setAdapter(adapter);
 
-        if(getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
-            rv.setLayoutManager(new NpaLinearLayoutManager(getContext()));
+            rv.setItemAnimator(new DefaultItemAnimator());
         }
-        else{
-            rv.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        }
-
-        rv.setItemAnimator(new DefaultItemAnimator());
     }
 
 
 
     @Override
     public void onItemsLoaded() {
+        //TODO FIX
+        createItemView();
         if(swipeRefreshLayout!=null)
             swipeRefreshLayout.setRefreshing(false);
         if(adapter!=null)

@@ -21,14 +21,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
@@ -58,17 +62,21 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     private Toolbar toolbar;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private DrawerLayout drawerLayout;
-    private AlertDialog dialog;
+
+    private ListView mDrawerList;
+    private ArrayAdapter<String> mAdapter;
 
     private MainFragment mainFragment;
+
+    private UserSessionManager session;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        UserSessionManager session = new UserSessionManager(getApplicationContext());
-        if(!session.checkLogin()&& LoginFragment.testIsLoggedIn) {
+        session = new UserSessionManager(getApplicationContext());
+        if(!session.checkLogin()) {
             finish();
             return;
         }
@@ -102,12 +110,10 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         actionBarDrawerToggle.syncState();
 
-        //createTestDataFromAssets();
+        createDrawerMenu();
+
         Repository.loadItems();
     }
-
-
-
 
 
     @Override
@@ -144,6 +150,33 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         }
 
         super.onBackPressed();
+    }
+
+    public void createDrawerMenu(){
+        mDrawerList = (ListView)drawerLayout.findViewById(R.id.left_drawer);
+        addDrawerItems();
+
+    }
+
+    private void addDrawerItems() {
+        //TODO UITWERKEN
+        String[] osArray = { "Vakanties", "Activiteiten", "Meer info", "Instellingen", "Log uit"};
+        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, osArray);
+        mDrawerList.setAdapter(mAdapter);
+
+
+
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("drawer", "item clicked "+position);
+                Toast.makeText(MainActivity.this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
+                if(position == 4){
+                    Repository.logoutUser();
+                }
+            }
+        });
+
     }
 
 }

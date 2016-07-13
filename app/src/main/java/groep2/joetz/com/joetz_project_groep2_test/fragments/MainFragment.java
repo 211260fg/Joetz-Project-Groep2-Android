@@ -157,59 +157,30 @@ public class MainFragment extends Fragment  implements OnFragmentInteractionList
         }
     }
 
-
-
-    /*@Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            mListener = (OnFragmentInteractionListener) getActivity();
-        } catch (ClassCastException e) {
-            throw new ClassCastException(getActivity().toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }*/
-
     @Override
     public void onFragmentInteraction(int pos) {
 
-        /*if (vacationFragment == null || !(vacationFragment.isVisible())) {
+            if (pos > -1) {
 
-            vacationFragment = VacationFragment.getNewInstance();
+                vacationFragment = VacationFragment.getNewInstance(pos);
 
-            getSupportFragmentManager().beginTransaction()
-                    .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
-                    .replace(R.id.viewPager, vacationFragment).commit();
-        }*/
+                FragmentTransaction trans = getChildFragmentManager().beginTransaction();
 
-        if(pos>-1) {
+                trans.replace(R.id.container_frame, vacationFragment);
 
-            vacationFragment = VacationFragment.getNewInstance(pos);
+                trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                trans.addToBackStack(null);
+                trans.commit();
 
-            FragmentTransaction trans = getFragmentManager().beginTransaction();
-
-            trans.replace(R.id.container_frame, vacationFragment);
-
-            trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-            trans.addToBackStack(null);
-            trans.commit();
-
-            toggleFABVisibility(false);
-        }else{
-            getFragmentManager().popBackStackImmediate();
-            toggleFABVisibility(true);
-        }
+                toggleFABVisibility(false);
+            } else {
+                getChildFragmentManager().popBackStackImmediate();
+                toggleFABVisibility(true);
+            }
 
     }
 
     public void onBackPressed() {
-
         if (vacationFragment!=null && vacationFragment.isVisible()) { // and then you define a method allowBackPressed with the logic to allow back pressed or not
             toggleFABVisibility(true);
         }
@@ -287,7 +258,7 @@ public class MainFragment extends Fragment  implements OnFragmentInteractionList
         fragments.add(HistoryFragment.getNewInstance());
         fragments.add(ChatFragment.getNewInstance());
 
-        myFragmentPagerAdapter = new MyFragmentPagerAdapter(getFragmentManager(), fragments);
+        myFragmentPagerAdapter = new MyFragmentPagerAdapter(getChildFragmentManager(), fragments);
         this.viewPager = (ViewPager) rootView.findViewById(R.id.viewPager);
         this.viewPager.setAdapter(myFragmentPagerAdapter);
 
