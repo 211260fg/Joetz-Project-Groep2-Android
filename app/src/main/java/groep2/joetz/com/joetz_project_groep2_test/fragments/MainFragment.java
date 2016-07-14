@@ -187,6 +187,8 @@ public class MainFragment extends Fragment  implements OnFragmentInteractionList
     }
 
 
+    //TODO: KLEUR VAN CHECKBOXES (ZIE STYLES.XML)
+    //https://github.com/afollestad/material-dialogs#colors
     private AlertDialog.Builder builder;
 
     private void buildFilterDialog(String title, CharSequence[] items) {

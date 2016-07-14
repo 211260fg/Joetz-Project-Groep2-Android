@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
                     .replace(R.id.fragmenPane, mainFragment).commit();
 
 
+        createDrawerMenu();
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.app_name, R.string.app_name) {
             @Override
@@ -102,6 +103,9 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
                 super.onDrawerSlide(drawerView, slideOffset);
                 if(mainFragment!=null&&mainFragment.isVisible())
                     mainFragment.toggleTranslateFAB(slideOffset);
+
+                mDrawerList.bringToFront();
+                drawerLayout.requestLayout();
             }
         };
 
@@ -110,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         actionBarDrawerToggle.syncState();
 
-        createDrawerMenu();
+
 
         Repository.loadItems();
     }
@@ -158,9 +162,10 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
     }
 
+    //TODO UITWERKEN
     private void addDrawerItems() {
-        //TODO UITWERKEN
-        String[] osArray = { "Vakanties", "Activiteiten", "Meer info", "Instellingen", "Log uit"};
+        String username = UserSessionManager.getUserDetails().get(UserSessionManager.KEY_NAME);
+        final String[] osArray = { username, "Vakanties", "Activiteiten", "Meer info", "Instellingen", "Log uit"};
         mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
 
@@ -169,9 +174,8 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("drawer", "item clicked "+position);
-                Toast.makeText(MainActivity.this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
-                if(position == 4){
+                Toast.makeText(MainActivity.this, osArray[position]+" clicked", Toast.LENGTH_SHORT).show();
+                if(position == 5){
                     Repository.logoutUser();
                 }
             }

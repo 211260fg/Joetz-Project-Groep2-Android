@@ -111,8 +111,7 @@ public class LoginFragment extends Fragment implements OnLoggedInListener{
             input_password.setError(null);
         }
 
-        //return valid;
-        return true;
+        return valid;
     }
 
 
