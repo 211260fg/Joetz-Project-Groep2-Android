@@ -12,6 +12,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+
+import java.util.Arrays;
+
 import groep2.joetz.com.joetz_project_groep2_test.R;
 import groep2.joetz.com.joetz_project_groep2_test.activities.AuthenticationActivity;
 import groep2.joetz.com.joetz_project_groep2_test.activities.MainActivity;
@@ -31,13 +40,20 @@ public class LoginFragment extends Fragment implements OnLoggedInListener{
     private EditText input_password;
     private Button btnLogin;
     private TextView link_signup;
+    private LoginButton btnFBLogin;
 
     private View rootView;
 
     UserSessionManager session;
 
-    public static boolean testIsLoggedIn=false;
+    CallbackManager callbackManager;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,9 +61,12 @@ public class LoginFragment extends Fragment implements OnLoggedInListener{
 
         session = new UserSessionManager(getActivity().getApplicationContext());
 
+        callbackManager = CallbackManager.Factory.create();
+
         input_email = (EditText) rootView.findViewById(R.id.input_email);
         input_password = (EditText) rootView.findViewById(R.id.input_password);
         btnLogin = (Button) rootView.findViewById(R.id.btnLogin);
+        btnFBLogin = (LoginButton) rootView.findViewById(R.id.btnFBLogin);
         link_signup = (TextView) rootView.findViewById(R.id.link_signup);
 
 
@@ -57,6 +76,8 @@ public class LoginFragment extends Fragment implements OnLoggedInListener{
                 login();
             }
         });
+
+        setupfbLogin();
 
         return rootView;
     }
@@ -72,6 +93,37 @@ public class LoginFragment extends Fragment implements OnLoggedInListener{
             return;
         }
         Repository.loginUser(input_email.getText().toString(), input_password.getText().toString());
+    }
+
+    private void setupfbLogin(){
+
+        String[] permissions = {"email", "public_profile" };
+        btnFBLogin.setReadPermissions(Arrays.asList(permissions));
+        btnFBLogin.setFragment(this);
+
+        btnFBLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // App code
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+            }
+        });
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
 

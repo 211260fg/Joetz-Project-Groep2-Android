@@ -34,6 +34,7 @@ import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.FacebookSdk;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
@@ -76,6 +77,8 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
 
         session = new UserSessionManager(getApplicationContext());
         if (!session.checkLogin()) {
@@ -164,6 +167,8 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         addDrawerItems();
 
     }
+
+
 
     //TODO UITWERKEN
     private void addDrawerItems() {
