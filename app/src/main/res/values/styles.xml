@@ -16,7 +16,7 @@
 
         <item name="colorPrimary">@color/maintheme</item>
         <item name="colorPrimaryDark">@color/maintheme_dark</item>
-        <item name="colorAccent">@color/maintheme</item>
+        <item name="colorAccent">@color/semitransparent_maintheme</item>
 
         <item name="android:colorAccent">@color/maintheme</item>
 

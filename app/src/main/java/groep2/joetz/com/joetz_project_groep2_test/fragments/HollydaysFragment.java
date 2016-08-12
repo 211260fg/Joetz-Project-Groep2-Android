@@ -18,6 +18,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+
 import groep2.joetz.com.joetz_project_groep2_test.R;
 import groep2.joetz.com.joetz_project_groep2_test.adapter.RecyclerViewAdapter;
 import groep2.joetz.com.joetz_project_groep2_test.repository.OnItemsLoadedListener;
@@ -89,6 +91,12 @@ public class HollydaysFragment extends Fragment implements OnItemsLoadedListener
         mListener = null;
     }
 
+    @Override
+    public void onDestroy() {
+
+        Glide.get(getActivity()).clearMemory();
+        super.onDestroy();
+    }
 
     private void createItemView() {
         if(getActivity()!=null) {

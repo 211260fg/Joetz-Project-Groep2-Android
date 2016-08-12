@@ -4,9 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 
 
+import com.google.gson.Gson;
+
 import java.util.HashMap;
 
 import groep2.joetz.com.joetz_project_groep2_test.activities.AuthenticationActivity;
+import groep2.joetz.com.joetz_project_groep2_test.model.User;
 
 /**
  * Created by floriangoeteyn on 04-Apr-16.
@@ -15,6 +18,8 @@ public class UserSessionManager {
 
     //Secured Preferences reference
     private static SecurePreferences secpref;
+
+    private Gson gson;
 
     // Context
     static Context _context;
@@ -29,7 +34,10 @@ public class UserSessionManager {
     public static final String KEY_NAME = "name";
 
     // Email address (make variable public to access from outside)
-    public static final String KEY_EMAIL = "icon_email";
+    public static final String KEY_PASSWORD = "password";
+
+
+    private static final String KEY_CURRENT_USER = "currentuser";
 
 
     // Constructor
@@ -48,7 +56,7 @@ public class UserSessionManager {
         secpref.put(KEY_NAME, name);
 
         // Storing icon_email in pref
-        secpref.put(KEY_EMAIL, email);
+        secpref.put(KEY_PASSWORD, email);
 
         // commit changes
     }
@@ -93,7 +101,7 @@ public class UserSessionManager {
 
 
         // user icon_email id
-        user.put(KEY_EMAIL, secpref.getString(KEY_EMAIL));
+        user.put(KEY_PASSWORD, secpref.getString(KEY_PASSWORD));
 
         // return user
         return user;
@@ -125,5 +133,20 @@ public class UserSessionManager {
     public boolean isUserLoggedIn() {
         return secpref.getBoolean(IS_USER_LOGIN);
         //return false;
+    }
+
+
+    public static void saveCurrentUser(User user){
+        Gson gson = new Gson();
+        String json = gson.toJson(user); // myObject - instance of MyObject
+        secpref.put(KEY_CURRENT_USER, json);
+    }
+
+    public static User getCurrentUser(){
+        Gson gson = new Gson();
+        String json = secpref.getString(KEY_CURRENT_USER);
+        User currentuser = gson.fromJson(json, User.class);
+
+        return currentuser;
     }
 }

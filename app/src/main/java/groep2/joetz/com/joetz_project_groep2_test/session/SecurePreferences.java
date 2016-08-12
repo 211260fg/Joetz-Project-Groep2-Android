@@ -142,7 +142,7 @@ public class SecurePreferences {
             String securedEncodedValue = preferences.getString(toKey(key), "");
             return decrypt(securedEncodedValue);
         }
-        return null;
+        return "";
     }
 
     public boolean getBoolean(String key) throws SecurePreferencesException {

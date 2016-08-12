@@ -53,11 +53,12 @@ import groep2.joetz.com.joetz_project_groep2_test.fragments.HollydaysFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.LoginFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.MainFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.OnFragmentInteractionListener;
+import groep2.joetz.com.joetz_project_groep2_test.fragments.UserFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.VacationFragment;
 import groep2.joetz.com.joetz_project_groep2_test.repository.Repository;
 import groep2.joetz.com.joetz_project_groep2_test.session.UserSessionManager;
 
-public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener {
 
     private Toolbar toolbar;
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     private ArrayAdapter<String> mAdapter;
 
     private MainFragment mainFragment;
+    private UserFragment userFragment;
 
     private UserSessionManager session;
 
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         super.onCreate(savedInstanceState);
 
         session = new UserSessionManager(getApplicationContext());
-        if(!session.checkLogin()) {
+        if (!session.checkLogin()) {
             finish();
             return;
         }
@@ -89,11 +91,13 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
         setSupportActionBar(toolbar);
 
-            mainFragment = MainFragment.getNewInstance();
+        mainFragment = MainFragment.getNewInstance();
 
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmenPane, mainFragment).commit();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmenPane, mainFragment).commit();
 
+        /*getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmenPane, UserFragment.getNewInstance()).commit();*/
 
         createDrawerMenu();
 
@@ -101,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
-                if(mainFragment!=null&&mainFragment.isVisible())
+                if (mainFragment != null && mainFragment.isVisible())
                     mainFragment.toggleTranslateFAB(slideOffset);
 
                 mDrawerList.bringToFront();
@@ -113,7 +117,6 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         actionBarDrawerToggle.syncState();
-
 
 
         Repository.loadItems();
@@ -140,13 +143,13 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     @Override
     public void onFragmentInteraction(int pos) {
 
-        if(mainFragment!=null && mainFragment.isVisible()){
+        if (mainFragment != null && mainFragment.isVisible()) {
             mainFragment.onFragmentInteraction(pos);
         }
 
     }
 
-    @Override
+    /*@Override
     public void onBackPressed() {
 
         if (mainFragment!=null && mainFragment.isVisible()) {
@@ -154,10 +157,10 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         }
 
         super.onBackPressed();
-    }
+    }*/
 
-    public void createDrawerMenu(){
-        mDrawerList = (ListView)drawerLayout.findViewById(R.id.left_drawer);
+    public void createDrawerMenu() {
+        mDrawerList = (ListView) drawerLayout.findViewById(R.id.left_drawer);
         addDrawerItems();
 
     }
@@ -165,18 +168,37 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     //TODO UITWERKEN
     private void addDrawerItems() {
         String username = UserSessionManager.getUserDetails().get(UserSessionManager.KEY_NAME);
-        final String[] osArray = { username, "Vakanties", "Activiteiten", "Meer info", "Instellingen", "Log uit"};
-        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, osArray);
+        //String username = UserSessionManager.getCurrentUser().getUsername();
+        final String[] osArray = {username, "Vakanties", "Activiteiten", "Meer info", "Instellingen", "Log uit"};
+        mAdapter = new ArrayAdapter<>(this, R.layout.layout_drawer_listitem, R.id.list_content, osArray);
+
         mDrawerList.setAdapter(mAdapter);
-
-
-
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, osArray[position]+" clicked", Toast.LENGTH_SHORT).show();
-                if(position == 5){
-                    Repository.logoutUser();
+                drawerLayout.closeDrawers();
+                Toast.makeText(MainActivity.this, osArray[position] + " clicked", Toast.LENGTH_SHORT).show();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                switch (position) {
+                    case 0:
+                        if (userFragment == null || !userFragment.isVisible()) {
+                            userFragment = UserFragment.getNewInstance();
+                            transaction.replace(R.id.fragmenPane, userFragment);
+                            transaction.commit();
+                        }
+                        break;
+
+                    case 1:
+                        if (mainFragment == null || !mainFragment.isVisible()) {
+                            mainFragment = MainFragment.getNewInstance();
+                            transaction.replace(R.id.fragmenPane, mainFragment);
+                            transaction.commit();
+                        }
+                        break;
+
+                    case 5:
+                        Repository.logoutUser();
+                        break;
                 }
             }
         });

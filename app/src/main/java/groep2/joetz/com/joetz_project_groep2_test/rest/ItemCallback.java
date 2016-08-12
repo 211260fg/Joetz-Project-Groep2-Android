@@ -2,8 +2,6 @@ package groep2.joetz.com.joetz_project_groep2_test.rest;
 
 import android.util.Log;
 
-import com.squareup.okhttp.ResponseBody;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +29,7 @@ public class ItemCallback implements Callback<List<Vakantie>> {
         this.itemLoader = itemLoader;
         try{
             HashMap<String, String> user = UserSessionManager.getUserDetails();
-            restClient = new RestClient(user.get(UserSessionManager.KEY_NAME), user.get(UserSessionManager.KEY_EMAIL));
+            restClient = new RestClient(user.get(UserSessionManager.KEY_NAME), user.get(UserSessionManager.KEY_PASSWORD));
         }
         catch(NullPointerException ignored){
         }

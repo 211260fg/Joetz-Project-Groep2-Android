@@ -31,6 +31,10 @@ public class Repository {
         return items;
     }
 
+    public static User getCurrentUser() {
+        return UserSessionManager.getCurrentUser();
+    }
+
     //--------------------------//
 
     public static void registerListener(OnItemsLoadedListener listener){
@@ -88,6 +92,7 @@ public class Repository {
 
 
     public static void onLoginSuccess(User user){
+        //UserSessionManager.saveCurrentUser(user);
         for(OnLoggedInListener listener: loginlisteners){
             listener.onLoginSuccess();
         }

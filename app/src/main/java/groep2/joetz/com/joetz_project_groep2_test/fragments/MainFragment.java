@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -22,7 +23,7 @@ import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
 
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
+
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
@@ -87,17 +88,17 @@ public class MainFragment extends Fragment  implements OnFragmentInteractionList
         return rootView;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 
     private void setupFAB() {
         //define the icon for the main floating action button
-        ImageView iconFAB = new ImageView(getContext());
-        iconFAB.setImageResource(R.drawable.ic_search_white_24dp);
 
-        //set the appropriate background for the main floating action button along with its icon
-        mFAB = new FloatingActionButton.Builder(getActivity())
-                .setContentView(iconFAB)
-                .setBackgroundDrawable(R.drawable.floatingactionbutton)
-                .build();
+
+        mFAB = (FloatingActionButton) rootView.findViewById(R.id.mfab);
+
 
         //define the icons for the sub action buttons
         ImageView iconSortAge = new ImageView(getContext());
