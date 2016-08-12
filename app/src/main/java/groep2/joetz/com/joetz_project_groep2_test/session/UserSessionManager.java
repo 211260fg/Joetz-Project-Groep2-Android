@@ -136,7 +136,7 @@ public class UserSessionManager {
     }
 
 
-    public static void saveCurrentUser(User user){
+    public void saveCurrentUser(User user){
         Gson gson = new Gson();
         String json = gson.toJson(user); // myObject - instance of MyObject
         secpref.put(KEY_CURRENT_USER, json);

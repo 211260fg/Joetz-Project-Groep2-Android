@@ -94,7 +94,7 @@ public class Repository {
     public static void onLoginSuccess(User user){
         //UserSessionManager.saveCurrentUser(user);
         for(OnLoggedInListener listener: loginlisteners){
-            listener.onLoginSuccess();
+            listener.onLoginSuccess(user);
         }
     }
 

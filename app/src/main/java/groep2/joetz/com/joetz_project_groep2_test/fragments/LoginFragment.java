@@ -15,6 +15,7 @@ import android.widget.Toast;
 import groep2.joetz.com.joetz_project_groep2_test.R;
 import groep2.joetz.com.joetz_project_groep2_test.activities.AuthenticationActivity;
 import groep2.joetz.com.joetz_project_groep2_test.activities.MainActivity;
+import groep2.joetz.com.joetz_project_groep2_test.model.User;
 import groep2.joetz.com.joetz_project_groep2_test.repository.OnLoggedInListener;
 import groep2.joetz.com.joetz_project_groep2_test.repository.Repository;
 import groep2.joetz.com.joetz_project_groep2_test.session.UserSessionManager;
@@ -57,10 +58,6 @@ public class LoginFragment extends Fragment implements OnLoggedInListener{
             }
         });
 
-        //TODO VERWIJDEREN NA UITWERKING LOGIN
-        Toast.makeText(getActivity(), "TEST: klik op aanmelden om de startpagina te bekijken", Toast.LENGTH_LONG).show();
-
-
         return rootView;
     }
 
@@ -78,16 +75,19 @@ public class LoginFragment extends Fragment implements OnLoggedInListener{
     }
 
 
-    public void onLoginSuccess(){
+    @Override
+    public void onLoginSuccess(User user){
         session.createUserLoginSession(input_email.getText().toString(), input_password.getText().toString());
+        session.saveCurrentUser(user);
 
         Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
         startActivity(i);
         getActivity().finish();
     }
 
+    @Override
     public void onLoginFailed(){
-        Toast.makeText(getActivity(), "NO USER FOUND", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "The e-mail or password is incorrect", Toast.LENGTH_LONG).show();
     }
 
 
