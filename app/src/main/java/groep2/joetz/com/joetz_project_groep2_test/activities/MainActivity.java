@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 drawerLayout.closeDrawers();
-                Toast.makeText(MainActivity.this, osArray[position] + " clicked", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, osArray[position] + " clicked", Toast.LENGTH_SHORT).show();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 switch (position) {
                     case 0:

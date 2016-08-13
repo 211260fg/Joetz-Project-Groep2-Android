@@ -1,9 +1,11 @@
 package groep2.joetz.com.joetz_project_groep2_test.fragments;
 
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,11 +44,20 @@ public class LoginFragment extends Fragment implements OnLoggedInListener{
     private TextView link_signup;
     private LoginButton btnFBLogin;
 
+    private ProgressDialog progressDialog;
+
     private View rootView;
 
-    UserSessionManager session;
+    private OnFragmentInteractionListener mListener;
 
-    CallbackManager callbackManager;
+    private UserSessionManager session;
+
+    private CallbackManager callbackManager;
+
+
+    public static LoginFragment getNewInstance() {
+        return new LoginFragment();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,6 +87,12 @@ public class LoginFragment extends Fragment implements OnLoggedInListener{
                 login();
             }
         });
+        link_signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signup();
+            }
+        });
 
         setupfbLogin();
 
@@ -88,11 +105,44 @@ public class LoginFragment extends Fragment implements OnLoggedInListener{
         Repository.registerLoginListener(this);
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mListener = (OnFragmentInteractionListener) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(progressDialog!=null)
+            progressDialog.dismiss();
+    }
+
     private void login(){
         if(!validateFields()){
             return;
         }
         Repository.loginUser(input_email.getText().toString(), input_password.getText().toString());
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Laden...");
+        progressDialog.show();
+
+    }
+
+    private void signup(){
+        mListener.onFragmentInteraction(0);
     }
 
     private void setupfbLogin(){
@@ -129,6 +179,10 @@ public class LoginFragment extends Fragment implements OnLoggedInListener{
 
     @Override
     public void onLoginSuccess(User user){
+
+        if(progressDialog!=null)
+            progressDialog.dismiss();
+
         session.createUserLoginSession(input_email.getText().toString(), input_password.getText().toString());
         session.saveCurrentUser(user);
 
@@ -139,7 +193,11 @@ public class LoginFragment extends Fragment implements OnLoggedInListener{
 
     @Override
     public void onLoginFailed(){
-        Toast.makeText(getActivity(), "The e-mail or password is incorrect", Toast.LENGTH_LONG).show();
+
+        if(progressDialog!=null)
+            progressDialog.dismiss();
+
+        Toast.makeText(getActivity(), "Fout e-mailadres of wachtwoord", Toast.LENGTH_LONG).show();
     }
 
 
