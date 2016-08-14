@@ -51,6 +51,10 @@ public class RestClient {
         return client.create(ItemApiInterface.class);
     }
 
+    public ContactsApiInterface getContactsClient(){
+        return client.create(ContactsApiInterface.class);
+    }
+
     private Retrofit createClient(){
 
         OkHttpClient okClient = new OkHttpClient();
@@ -91,6 +95,9 @@ public class RestClient {
     }
 
 
+
+
+
     public interface ItemApiInterface{
 
         @GET(Values.URL_VACATIONS)
@@ -100,6 +107,11 @@ public class RestClient {
     public interface UserApiInterface{
         @GET(Values.URL_USER)
         Call<User> getUser();
+    }
+
+    public interface ContactsApiInterface{
+        @GET(Values.URL_CONTACTS)
+        Call<List<User>> getContacts();
     }
 
 

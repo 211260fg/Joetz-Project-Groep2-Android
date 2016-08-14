@@ -10,7 +10,7 @@
         <FrameLayout
             android:id="@+id/header_cover_image"
             android:layout_width="match_parent"
-            android:layout_height="200dp"/>
+            android:layout_height="180dp"/>
 
         <ImageButton
             android:id="@+id/user_profile_photo"

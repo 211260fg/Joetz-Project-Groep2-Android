@@ -76,10 +76,6 @@ public class RecyclerViewAdapter  extends RecyclerView.Adapter<RecyclerViewAdapt
             Glide.with(context).load(item.getHeader_img()).override(500, 200).centerCrop().into(itemViewHolder.itemImage);
             Glide.with(context).load(item.getCategory().getImg_src()).override(50, 50).centerCrop().into(itemViewHolder.itemCategory);
 
-        /*Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(itemViewHolder.itemImage);
-        Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(itemViewHolder.itemCategory);*/
-
-        //onclicklistener voor de items in de recyclerview (item op kaart)
         itemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -58,8 +58,6 @@ public class MainFragment extends Fragment  implements OnFragmentInteractionList
 
     private View rootView;
 
-    private OnFragmentInteractionListener mListener;
-
 
 
     public static MainFragment getNewInstance() {
@@ -256,7 +254,8 @@ public class MainFragment extends Fragment  implements OnFragmentInteractionList
     private void initializeViewPager() {
         List<android.support.v4.app.Fragment> fragments = new Vector<>();
 
-        //fragments.add(HollydaysFragment.getNewInstance());
+
+
         fragments.add(new ContainerFragment());
         fragments.add(HistoryFragment.getNewInstance());
         fragments.add(ChatFragment.getNewInstance());

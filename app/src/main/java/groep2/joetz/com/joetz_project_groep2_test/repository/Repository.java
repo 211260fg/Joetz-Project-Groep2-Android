@@ -1,16 +1,11 @@
 package groep2.joetz.com.joetz_project_groep2_test.repository;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+import groep2.joetz.com.joetz_project_groep2_test.loader.ContactsLoader;
 import groep2.joetz.com.joetz_project_groep2_test.loader.ItemLoader;
 import groep2.joetz.com.joetz_project_groep2_test.loader.LoginLoader;
-import groep2.joetz.com.joetz_project_groep2_test.model.Category;
 import groep2.joetz.com.joetz_project_groep2_test.model.User;
 import groep2.joetz.com.joetz_project_groep2_test.model.Vakantie;
 import groep2.joetz.com.joetz_project_groep2_test.session.UserSessionManager;
@@ -20,15 +15,21 @@ import groep2.joetz.com.joetz_project_groep2_test.session.UserSessionManager;
  */
 public class Repository {
 
-    private static List<OnItemsLoadedListener> listeners = new ArrayList<>();
+    private static List<OnItemsLoadedListener> itemlisteners = new ArrayList<>();
     private static List<OnLoggedInListener> loginlisteners = new ArrayList<>();
-    private static List<Vakantie> items = new ArrayList<>();
+    private static List<OnContactsLoadedListener> contactslisteners = new ArrayList<>();
 
+    private static List<Vakantie> items = new ArrayList<>();
+    private static List<User> contacts = new ArrayList<>();
 
     //---------------------------//
 
     public static List<Vakantie> getItems() {
         return items;
+    }
+
+    public static List<User> getContacts() {
+        return contacts;
     }
 
     public static User getCurrentUser() {
@@ -38,13 +39,13 @@ public class Repository {
     //--------------------------//
 
     public static void registerListener(OnItemsLoadedListener listener){
-        if(!listeners.contains(listener))
-            listeners.add(listener);
+        if(!itemlisteners.contains(listener))
+            itemlisteners.add(listener);
     }
 
     public void removeListener(OnItemsLoadedListener listener){
-        if(listeners.contains(listener))
-            listeners.remove(listener);
+        if(itemlisteners.contains(listener))
+            itemlisteners.remove(listener);
     }
 
     //---------------------------//
@@ -61,9 +62,28 @@ public class Repository {
 
     //---------------------------//
 
+    public static void registerContactsListener(OnContactsLoadedListener listener){
+        if(!contactslisteners.contains(listener))
+            contactslisteners.add(listener);
+    }
+
+    public void removeListener(OnContactsLoadedListener listener){
+        if(contactslisteners.contains(listener))
+            contactslisteners.remove(listener);
+    }
+
+    //---------------------------//
+
     public static void loadItems(){
         items= new ArrayList<>();
         new ItemLoader();
+    }
+
+    //--------------------------//
+
+    public static void loadContacts(){
+        contacts= new ArrayList<>();
+        new ContactsLoader();
     }
 
     //--------------------------//
@@ -91,6 +111,18 @@ public class Repository {
     //--------------------------//
 
 
+    public static void onContactsLoaded(List<User> contacts){
+        Repository.contacts=contacts;
+        notifyListenersContactsLoaded();
+    }
+
+    public static void onContactsLoadFailed(){
+        notifyListenersContactsLoadFailed();
+    }
+
+    //--------------------------//
+
+
     public static void onLoginSuccess(User user){
         //UserSessionManager.saveCurrentUser(user);
         for(OnLoggedInListener listener: loginlisteners){
@@ -108,23 +140,39 @@ public class Repository {
     //--------------------------//
 
     private static void notifyListenersItemsLoaded(){
-        for(OnItemsLoadedListener listener: listeners){
+        for(OnItemsLoadedListener listener: itemlisteners){
             listener.onItemsLoaded();
         }
     }
     private static void notifyListenersLoadFailed(){
-        for(OnItemsLoadedListener listener: listeners){
+        for(OnItemsLoadedListener listener: itemlisteners){
             listener.onLoadFailed();
         }
     }
     private static void notifyListenersItemAdded(){
-        for(OnItemsLoadedListener listener: listeners){
+        for(OnItemsLoadedListener listener: itemlisteners){
             listener.onItemAdded();
         }
     }
     private static void notifyListenersItemDeleted(){
-        for(OnItemsLoadedListener listener: listeners){
+        for(OnItemsLoadedListener listener: itemlisteners){
             listener.onItemDeleted();
         }
     }
+
+
+    //--------------------------//
+
+    private static void notifyListenersContactsLoaded(){
+        for(OnContactsLoadedListener listener: contactslisteners){
+            listener.onContactsLoaded();
+        }
+    }
+    private static void notifyListenersContactsLoadFailed(){
+        for(OnContactsLoadedListener listener: contactslisteners){
+            listener.onLoadFailed();
+        }
+    }
+
+
 }

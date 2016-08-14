@@ -6,32 +6,29 @@ import java.util.List;
 import groep2.joetz.com.joetz_project_groep2_test.model.User;
 import groep2.joetz.com.joetz_project_groep2_test.model.Vakantie;
 import groep2.joetz.com.joetz_project_groep2_test.repository.Repository;
+import groep2.joetz.com.joetz_project_groep2_test.rest.ContactsCallback;
 import groep2.joetz.com.joetz_project_groep2_test.rest.ItemCallback;
 
 /**
- * Created by floriangoeteyn on 15-Mar-16.
+ * Created by Florian on 14/08/2016.
  */
-
-//klasse verantwoordelijk voor communicatie tussen REST en Repository
-public class ItemLoader{
-
-    private ItemCallback callback;
+public class ContactsLoader {
+    private ContactsCallback callback;
     private List<Vakantie> items;
 
 
-    public ItemLoader(){
+    public ContactsLoader(){
         items =new ArrayList<>();
-        this.callback = new ItemCallback(this);
-        callback.getItems();
+        this.callback = new ContactsCallback(this);
+        callback.getContacts();
     }
 
-    public void onItemsLoaded(List<Vakantie> items) {
-        this.items=items;
-        Repository.onItemsLoaded(items);
+    public void onContactsLoaded(List<User> contacts) {
+        Repository.onContactsLoaded(contacts);
     }
 
     public void onLoadFailed(){
-        Repository.onLoadFailed();
+        Repository.onContactsLoadFailed();
     }
 
 }

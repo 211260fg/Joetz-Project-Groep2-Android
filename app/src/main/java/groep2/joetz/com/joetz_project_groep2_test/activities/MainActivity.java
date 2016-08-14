@@ -170,6 +170,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
             drawerHeader.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    navView.setCheckedItem(R.id.nav_profile);
                     onNavigationItemSelected(navView.getMenu().findItem(R.id.nav_profile));
                 }
             });

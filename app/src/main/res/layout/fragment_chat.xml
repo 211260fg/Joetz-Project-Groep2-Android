@@ -1,18 +1,7 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="groep2.joetz.com.joetz_project_groep2_test.fragments.ChatFragment">
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:id="@+id/chatLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="40dp"
-        android:background="@drawable/listview_bg"
-        android:clipToPadding="false" />
-
-
-</LinearLayout>
+    android:id="@+id/container_frame" >
+</FrameLayout>
