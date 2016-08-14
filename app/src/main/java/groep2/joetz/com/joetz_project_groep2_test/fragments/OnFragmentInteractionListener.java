@@ -5,5 +5,10 @@ package groep2.joetz.com.joetz_project_groep2_test.fragments;
  */
 public interface OnFragmentInteractionListener {
     // TODO: Update argument type and name
-    public void onFragmentInteraction(int pos);
+    void onFragmentInteraction(InteractedFragment interactedFragment, int pos);
+
+    enum InteractedFragment{
+        AUTHENTICATION, CONTACTS, VACATIONS
+    }
+
 }

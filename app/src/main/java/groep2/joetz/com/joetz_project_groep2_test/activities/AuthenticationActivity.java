@@ -70,7 +70,7 @@ public class AuthenticationActivity extends AppCompatActivity implements OnFragm
     }
 
     @Override
-    public void onFragmentInteraction(int pos) {
+    public void onFragmentInteraction(InteractedFragment interactedFragment, int pos) {
         if(loginFragment!=null&&loginFragment.isVisible()){
             registerFragment = RegisterFragment.getNewInstance();
 

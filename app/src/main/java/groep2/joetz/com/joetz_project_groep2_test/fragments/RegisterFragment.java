@@ -50,7 +50,7 @@ public class RegisterFragment extends Fragment {
         link_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onFragmentInteraction(0);
+                mListener.onFragmentInteraction(OnFragmentInteractionListener.InteractedFragment.AUTHENTICATION, 0);
             }
         });
 

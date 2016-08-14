@@ -157,8 +157,9 @@ public class MainFragment extends Fragment  implements OnFragmentInteractionList
     }
 
     @Override
-    public void onFragmentInteraction(int pos) {
+    public void onFragmentInteraction(InteractedFragment interactedFragment, int pos) {
 
+        if(interactedFragment == InteractedFragment.VACATIONS) {
             if (pos > -1) {
 
                 vacationFragment = VacationFragment.getNewInstance(pos);
@@ -176,6 +177,13 @@ public class MainFragment extends Fragment  implements OnFragmentInteractionList
                 getChildFragmentManager().popBackStackImmediate();
                 toggleFABVisibility(true);
             }
+        }else{
+            if (pos > -1) {
+
+            } else {
+
+            }
+        }
 
     }
 

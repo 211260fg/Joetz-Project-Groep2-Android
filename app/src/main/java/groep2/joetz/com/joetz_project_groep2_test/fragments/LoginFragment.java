@@ -142,7 +142,7 @@ public class LoginFragment extends Fragment implements OnLoggedInListener{
     }
 
     private void signup(){
-        mListener.onFragmentInteraction(0);
+        mListener.onFragmentInteraction(OnFragmentInteractionListener.InteractedFragment.AUTHENTICATION, 0);
     }
 
     private void setupfbLogin(){

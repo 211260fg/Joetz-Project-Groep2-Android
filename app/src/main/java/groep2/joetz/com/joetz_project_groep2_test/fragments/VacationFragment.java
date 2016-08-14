@@ -105,7 +105,7 @@ public class VacationFragment extends Fragment {
         btnGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onFragmentInteraction(-1);
+                mListener.onFragmentInteraction(OnFragmentInteractionListener.InteractedFragment.VACATIONS, -1);
             }
         });
 

@@ -140,10 +140,10 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     }
 
     @Override
-    public void onFragmentInteraction(int pos) {
+    public void onFragmentInteraction(InteractedFragment interactedFragment, int pos) {
 
         if (mainFragment != null && mainFragment.isVisible()) {
-            mainFragment.onFragmentInteraction(pos);
+            mainFragment.onFragmentInteraction(interactedFragment, pos);
         }
 
     }

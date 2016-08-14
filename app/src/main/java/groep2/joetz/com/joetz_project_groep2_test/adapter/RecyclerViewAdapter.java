@@ -79,7 +79,7 @@ public class RecyclerViewAdapter  extends RecyclerView.Adapter<RecyclerViewAdapt
         itemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onFragmentInteraction(itemViewHolder.getAdapterPosition());
+                mListener.onFragmentInteraction(OnFragmentInteractionListener.InteractedFragment.VACATIONS, itemViewHolder.getAdapterPosition());
             }
         });
     }

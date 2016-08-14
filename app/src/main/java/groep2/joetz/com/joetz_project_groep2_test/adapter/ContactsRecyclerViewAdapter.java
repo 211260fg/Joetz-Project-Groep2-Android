@@ -52,7 +52,7 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
         contactsViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onFragmentInteraction(contactsViewHolder.getAdapterPosition());
+                mListener.onFragmentInteraction(OnFragmentInteractionListener.InteractedFragment.CONTACTS, contactsViewHolder.getAdapterPosition());
             }
         });
     }
