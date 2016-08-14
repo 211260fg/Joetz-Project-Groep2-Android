@@ -2,10 +2,12 @@ package groep2.joetz.com.joetz_project_groep2_test.activities;
 
 
 import android.content.Intent;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.res.AssetManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -29,11 +31,13 @@ import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.facebook.FacebookSdk;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
@@ -51,6 +55,7 @@ import groep2.joetz.com.joetz_project_groep2_test.fragments.ChatFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.ContainerFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.HistoryFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.HollydaysFragment;
+import groep2.joetz.com.joetz_project_groep2_test.fragments.InfoFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.LoginFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.MainFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.OnFragmentInteractionListener;
@@ -59,17 +64,20 @@ import groep2.joetz.com.joetz_project_groep2_test.fragments.VacationFragment;
 import groep2.joetz.com.joetz_project_groep2_test.repository.Repository;
 import groep2.joetz.com.joetz_project_groep2_test.session.UserSessionManager;
 
-public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar toolbar;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private DrawerLayout drawerLayout;
+    private NavigationView navView;
 
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
 
     private MainFragment mainFragment;
     private UserFragment userFragment;
+    private InfoFragment infoFragment;
+
 
     private UserSessionManager session;
 
@@ -111,8 +119,8 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
                 if (mainFragment != null && mainFragment.isVisible())
                     mainFragment.toggleTranslateFAB(slideOffset);
 
-                mDrawerList.bringToFront();
-                drawerLayout.requestLayout();
+                //mDrawerList.bringToFront();
+                //drawerLayout.requestLayout();
             }
         };
 
@@ -125,22 +133,10 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         Repository.loadItems();
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        /*if (id == R.id.action_settings) {
-            return true;
-        }*/
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -163,51 +159,74 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     }*/
 
     public void createDrawerMenu() {
-        mDrawerList = (ListView) drawerLayout.findViewById(R.id.left_drawer);
-        addDrawerItems();
 
-    }
+        try {
+            navView = (NavigationView) findViewById(R.id.nav_view);
 
+            navView.setNavigationItemSelectedListener(this);
+            View headerView = navView.getHeaderView(0);
 
-
-    //TODO UITWERKEN
-    private void addDrawerItems() {
-        String username = UserSessionManager.getUserDetails().get(UserSessionManager.KEY_NAME);
-        //String username = UserSessionManager.getCurrentUser().getUsername();
-        final String[] osArray = {username, "Vakanties", "Activiteiten", "Meer info", "Instellingen", "Log uit"};
-        mAdapter = new ArrayAdapter<>(this, R.layout.layout_drawer_listitem, R.id.list_content, osArray);
-
-        mDrawerList.setAdapter(mAdapter);
-        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                drawerLayout.closeDrawers();
-                //Toast.makeText(MainActivity.this, osArray[position] + " clicked", Toast.LENGTH_SHORT).show();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                switch (position) {
-                    case 0:
-                        if (userFragment == null || !userFragment.isVisible()) {
-                            userFragment = UserFragment.getNewInstance();
-                            transaction.replace(R.id.fragmenPane, userFragment);
-                            transaction.commit();
-                        }
-                        break;
-
-                    case 1:
-                        if (mainFragment == null || !mainFragment.isVisible()) {
-                            mainFragment = MainFragment.getNewInstance();
-                            transaction.replace(R.id.fragmenPane, mainFragment);
-                            transaction.commit();
-                        }
-                        break;
-
-                    case 5:
-                        Repository.logoutUser();
-                        break;
+            RelativeLayout drawerHeader = (RelativeLayout) headerView.findViewById(R.id.drawer_header);
+            drawerHeader.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onNavigationItemSelected(navView.getMenu().findItem(R.id.nav_profile));
                 }
-            }
-        });
+            });
 
+
+            ImageView profilephoto = (ImageView) headerView.findViewById(R.id.user_profile_photo);
+            TextView profilename = (TextView) headerView.findViewById(R.id.user_profile_name);
+            TextView profiledetails = (TextView) headerView.findViewById(R.id.user_profile_details);
+
+            Glide.with(this).load(Repository.getCurrentUser().getProfileimage()).centerCrop().into(profilephoto);
+            profilename.setText(Repository.getCurrentUser().getFirstname() + " " + Repository.getCurrentUser().getLastname());
+            profiledetails.setText(Repository.getCurrentUser().getEmail());
+
+        } catch (NullPointerException npe) {
+            npe.printStackTrace();
+        }
     }
 
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        switch (id) {
+            case R.id.nav_profile:
+                if (userFragment == null || !userFragment.isVisible()) {
+                    userFragment = UserFragment.getNewInstance();
+                    transaction.replace(R.id.fragmenPane, userFragment);
+                    transaction.commit();
+                }
+                break;
+            case R.id.nav_vacations:
+                if (mainFragment == null || !mainFragment.isVisible()) {
+                    mainFragment = MainFragment.getNewInstance();
+                    transaction.replace(R.id.fragmenPane, mainFragment);
+                    transaction.commit();
+                }
+                break;
+            case R.id.nav_activities:
+                break;
+            case R.id.nav_info:
+                if (infoFragment == null || !infoFragment.isVisible()) {
+                    infoFragment = InfoFragment.getNewInstance();
+                    transaction.replace(R.id.fragmenPane, infoFragment);
+                    transaction.commit();
+                }
+                break;
+            case R.id.nav_settings:
+                break;
+            case R.id.nav_logout:
+                Repository.logoutUser();
+                break;
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.navigation_drawer);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 }

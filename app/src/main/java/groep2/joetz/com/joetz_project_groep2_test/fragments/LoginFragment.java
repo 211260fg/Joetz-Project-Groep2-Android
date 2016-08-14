@@ -197,7 +197,8 @@ public class LoginFragment extends Fragment implements OnLoggedInListener{
         if(progressDialog!=null)
             progressDialog.dismiss();
 
-        Toast.makeText(getActivity(), "Fout e-mailadres of wachtwoord", Toast.LENGTH_LONG).show();
+        //TODO: juiste boodschap weergeven
+        Toast.makeText(getActivity(), "LOGIN ERROR", Toast.LENGTH_LONG).show();
     }
 
 

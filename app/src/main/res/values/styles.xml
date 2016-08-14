@@ -14,7 +14,9 @@
         <item name="android:windowSharedElementEnterTransition">@android:transition/move</item>
         <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
 
-        <item name="colorPrimary">@color/maintheme</item>
+        <item name="android:activatedBackgroundIndicator">@color/white</item>
+
+        <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryDark">@color/maintheme_dark</item>
         <item name="colorAccent">@color/semitransparent_maintheme</item>
 

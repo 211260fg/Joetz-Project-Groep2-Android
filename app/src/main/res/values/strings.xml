@@ -6,6 +6,15 @@
     <string name="action_settings">Settings</string>
 
 
+    final String[] osArray = {username, "Vakanties", "Activiteiten", "Meer info", "Instellingen", "Log uit"};
+
+    <string name="drawer_profile">Profiel</string>
+    <string name="drawer_vacations">Vakanties</string>
+    <string name="drawer_activities">Activiteiten</string>
+    <string name="drawer_info">Meer info</string>
+    <string name="drawer_settings">Instellingen</string>
+    <string name="drawer_logout">Log uit</string>
+
     <string-array name="tabs">
         <item>A</item>
         <item>B</item>
