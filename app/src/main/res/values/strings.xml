@@ -16,6 +16,24 @@
     <string name="drawer_settings">Instellingen</string>
     <string name="drawer_logout">Log uit</string>
 
+
+    <string name="info_aboutjoetztitle">Joetz</string>
+    <string name="info_aboutjoetzcontent">
+        JOETZ is de jeugddienst van de Socialistische Mutualiteiten (De Voorzorg en Bond Moyson) en profileert zich als gezondheidspromotor binnen het jeugdwerk. Ze focust zich met haar verschillende projecten en acties op alle kinderen en jongeren, van 3 tot 30 jaar.
+        \n\n
+        Gezien de diverse doelgroep en omvangrijke thematiek, werkt JOETZ met een brede waaier aan activiteiten, acties, projecten en producten.
+        \n\n
+        Om deze veelzijdige aanpak in goede banen te leiden, werken we rond enkele centrale pijlers uitgevoerd door aparte cellen:
+        \n\n
+        &#8226; Vakanties en vormingen\n
+        &#8226; Gezondheidspromotie\n
+        &#8226; Inclusie\n
+        &#8226; Internationaal\n
+        &#8226; Solidariteit
+    </string>
+    <string name="info_aboutapptitle">De app</string>
+    <string name="info_aboutappcontent"> Deze app is gemaakt in opdracht van projecten 3 voor het derde jaar Toegepaste Informatica aan de HoGent</string>
+
     <string-array name="tabs">
         <item>A</item>
         <item>B</item>

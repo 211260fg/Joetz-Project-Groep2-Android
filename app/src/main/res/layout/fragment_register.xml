@@ -95,43 +95,42 @@
                 android:backgroundTint="@color/maintheme"
                 android:background="@drawable/ic_camera_alt_white_24dp"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal">
+
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/link_back"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_weight="0.5"
+                    android:backgroundTint="@color/white"
+                    android:padding="12dp"
+                    android:text="Annuleer"
+                    android:textColor="@color/maintheme" />
+
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/btnRegister"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_weight="0.5"
+                    android:padding="12dp"
+                    android:text="Registreer"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
 
 
 
         </LinearLayout>
     </ScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
-
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/link_back"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_weight="0.5"
-            android:backgroundTint="@color/white"
-            android:padding="12dp"
-            android:text="Annuleer"
-            android:textColor="@color/maintheme" />
-
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btnRegister"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_weight="0.5"
-            android:padding="12dp"
-            android:text="Registreer"
-            android:textColor="@color/white" />
-
-    </LinearLayout>
 
 </RelativeLayout>

@@ -225,7 +225,7 @@ public class LoginFragment extends Fragment implements OnLoggedInListener{
         session.createUserLoginSession(input_email.getText().toString(), input_password.getText().toString());
         session.saveCurrentUser(user);
 
-        Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+        Intent i = new Intent(getActivity(), MainActivity.class);
         startActivity(i);
         getActivity().finish();
     }
