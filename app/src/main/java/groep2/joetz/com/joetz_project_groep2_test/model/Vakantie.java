@@ -23,6 +23,8 @@ public class Vakantie {
     private Category category;
     private int price;
 
+
+
     public String getTitle() {
         return title;
     }

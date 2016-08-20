@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -27,7 +28,7 @@ public class UserFragment extends Fragment {
     private User currentuser;
 
 
-    private ImageButton profilephoto;
+    private ImageView profilephoto;
     private TextView profilename;
     private TextView profileDetails;
 
@@ -43,7 +44,7 @@ public class UserFragment extends Fragment {
 
         rootView = inflater.inflate(R.layout.fragment_user, container, false);
 
-        profilephoto = (ImageButton) rootView.findViewById(R.id.user_profile_photo);
+        profilephoto = (ImageView) rootView.findViewById(R.id.user_profile_photo);
         profilename = (TextView) rootView.findViewById(R.id.user_profile_name);
         profileDetails = (TextView) rootView.findViewById(R.id.user_profile_details);
 

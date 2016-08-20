@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +19,13 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 
@@ -35,8 +41,6 @@ import groep2.joetz.com.joetz_project_groep2_test.session.UserSessionManager;
  * A simple {@link Fragment} subclass.
  */
 public class LoginFragment extends Fragment implements OnLoggedInListener{
-
-
 
     private EditText input_email;
     private EditText input_password;
@@ -151,20 +155,55 @@ public class LoginFragment extends Fragment implements OnLoggedInListener{
         btnFBLogin.setReadPermissions(Arrays.asList(permissions));
         btnFBLogin.setFragment(this);
 
+
         btnFBLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 // App code
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response) {
+                                Log.v("LoginActivity", response.toString());
+
+                                // Application code
+                                try {
+                                    String userID = object.getString("id");
+                                    String email = object.getString("email");
+                                    String firstname = object.optString("first_name");
+                                    String lastname = object.optString("last_name");
+                                    String name = object.optString("name");
+                                    String[] namearray = name.split("\\s+");
+                                    //String birthday = object.getString("birthday"); // 01/31/1980 format
+                                    String profilepic = "https://graph.facebook.com/" + userID + "/picture?type=large";
+
+                                    User fbUser = new User(email, namearray[0], namearray[1], profilepic);
+
+                                    onLoginSuccess(fbUser);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email,gender,birthday");
+                request.setParameters(parameters);
+                request.executeAsync();
+
+
             }
 
             @Override
             public void onCancel() {
                 // App code
+                Log.v("Facebook login", "cancel");
             }
 
             @Override
             public void onError(FacebookException exception) {
                 // App code
+                Log.v("Facebook login", exception.getCause().toString());
             }
         });
 

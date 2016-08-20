@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 
+import com.facebook.login.LoginManager;
 import com.google.gson.Gson;
 
 import java.util.HashMap;
@@ -123,6 +124,9 @@ public class UserSessionManager {
 
         // Add new Flag to start new Activity
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        // Logout from facebook
+        LoginManager.getInstance().logOut();
 
         // Staring Login Activity
         _context.startActivity(i);

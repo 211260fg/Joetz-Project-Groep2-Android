@@ -99,7 +99,8 @@ public class ContactsFragment extends Fragment implements OnContactsLoadedListen
 
     @Override
     public void onLoadFailed() {
-        Toast.makeText(getActivity(), "contacts load failed", Toast.LENGTH_LONG).show();
+        if(getActivity()!=null)
+            Toast.makeText(getActivity(), "contacts load failed", Toast.LENGTH_LONG).show();
     }
 
     /**

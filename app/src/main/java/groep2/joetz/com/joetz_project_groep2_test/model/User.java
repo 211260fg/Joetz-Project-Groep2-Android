@@ -15,6 +15,13 @@ public class User {
     private List<Vakantie> history;
     private String function;
 
+    public User(String email, String firstname, String lastname, String profileimage) {
+        this.email = email;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.profileimage = profileimage;
+    }
+
     public String getId() {
         return id;
     }
