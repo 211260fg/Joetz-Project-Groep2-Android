@@ -81,7 +81,7 @@ public class RestClient {
 
     public List<Call<List<Vacation>>> getItemCalls(){
         List<Call<List<Vacation>>> calls = new ArrayList<>();
-        calls.add(getItemClient().getVakanties());
+        calls.add(getItemClient().getVacations());
         return calls;
     }
 
@@ -92,7 +92,8 @@ public class RestClient {
     public interface ItemApiInterface{
 
         @GET(Values.URL_VACATIONS)
-        Call<List<Vacation>> getVakanties();
+        Call<List<Vacation>> getVacations();
+
     }
 
     public interface UserApiInterface{

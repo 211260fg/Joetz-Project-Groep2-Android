@@ -11,7 +11,7 @@ public class LoginLoader {
 
     LoginCallback callback;
 
-    public LoginLoader(String username, String password){
+    public void login(String username, String password){
         this.callback = new LoginCallback(this, username, password);
     }
 

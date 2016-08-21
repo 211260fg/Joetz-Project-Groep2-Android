@@ -12,13 +12,9 @@ import groep2.joetz.com.joetz_project_groep2_test.rest.ContactsCallback;
  * Created by Florian on 14/08/2016.
  */
 public class ContactsLoader {
-    private ContactsCallback callback;
-    private List<Vacation> items;
 
-
-    public ContactsLoader(){
-        items =new ArrayList<>();
-        this.callback = new ContactsCallback(this);
+    public void loadContacts(){
+        ContactsCallback callback = new ContactsCallback(this);
         callback.getContacts();
     }
 

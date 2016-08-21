@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,6 +34,8 @@ public class ContactsFragment extends Fragment implements OnContactsLoadedListen
     private RecyclerView rv;
     private ContactsRecyclerViewAdapter adapter;
 
+    private SwipeRefreshLayout swipeRefreshLayout;
+
     public static ContactsFragment getNewInstance() {
         return new ContactsFragment();
     }
@@ -45,6 +48,19 @@ public class ContactsFragment extends Fragment implements OnContactsLoadedListen
         rootview = inflater.inflate(R.layout.fragment_contacts, container, false);
 
         rv = (RecyclerView) rootview.findViewById(R.id.contactsRecyclerview);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) rootview.findViewById(R.id.swipeRefreshLayout);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Repository.loadContacts();
+            }
+        });
+        swipeRefreshLayout.setColorSchemeResources(R.color.maintheme);
+        swipeRefreshLayout.setEnabled(true);
+        swipeRefreshLayout.setRefreshing(true);
+
 
 
         return rootview;
@@ -94,14 +110,20 @@ public class ContactsFragment extends Fragment implements OnContactsLoadedListen
     @Override
     public void onContactsLoaded() {
         createContactsView();
+        if (swipeRefreshLayout != null)
+            swipeRefreshLayout.setRefreshing(false);
         if(adapter!=null)
             adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onLoadFailed() {
+        if (swipeRefreshLayout != null)
+            swipeRefreshLayout.setRefreshing(false);
+        if (adapter != null)
+            adapter.notifyDataSetChanged();
         if(getActivity()!=null)
-            Toast.makeText(getActivity(), "contacts load failed", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Contacten konden niet geladen worden", Toast.LENGTH_LONG).show();
     }
 
     /**

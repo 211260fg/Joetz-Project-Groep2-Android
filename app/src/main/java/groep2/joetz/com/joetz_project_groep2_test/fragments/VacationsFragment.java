@@ -9,9 +9,11 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -40,7 +42,7 @@ public class VacationsFragment extends Fragment implements OnItemsLoadedListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.fragment_hollydays, container, false);
+        rootView = inflater.inflate(R.layout.fragment_vacations, container, false);
 
         rv = (RecyclerView) rootView.findViewById(R.id.vacationsRecyclerview);
 
@@ -127,6 +129,8 @@ public class VacationsFragment extends Fragment implements OnItemsLoadedListener
             swipeRefreshLayout.setRefreshing(false);
         if(adapter!=null)
             adapter.notifyDataSetChanged();
+        if(getActivity()!=null)
+            Toast.makeText(getActivity(), "Kampen konden niet geladen worden", Toast.LENGTH_LONG).show();
     }
 
     @Override

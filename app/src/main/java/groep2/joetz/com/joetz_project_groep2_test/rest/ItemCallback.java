@@ -21,9 +21,7 @@ public class ItemCallback implements Callback<List<Vacation>> {
 
     private ItemLoader itemLoader;
 
-    private List<Call<List<Vacation>>> calls;
-    private int index;
-    RestClient restClient;
+    private RestClient restClient;
 
     public ItemCallback(ItemLoader itemLoader) {
         this.itemLoader = itemLoader;
@@ -36,22 +34,7 @@ public class ItemCallback implements Callback<List<Vacation>> {
     }
 
     public void getItems(){
-        calls = new ArrayList<>();
-        index = 0;
-        try {
-            calls= restClient.getItemCalls();
-        }
-        catch(NullPointerException ne){
-            ne.printStackTrace();
-        }
-        startCallback();
-    }
-
-    private void startCallback() {
-        if (!(index >= calls.size())) {
-            calls.get(index).enqueue(this);
-            index++;
-        }
+        restClient.getItemClient().getVacations().enqueue(this);
     }
 
 
@@ -59,8 +42,11 @@ public class ItemCallback implements Callback<List<Vacation>> {
     public void onResponse(Response<List<Vacation>> response) {
         if(response.isSuccess()){
             Log.w("response", "Successful!");
-            if (itemLoader != null)
+            if (itemLoader != null) {
                 itemLoader.onItemsLoaded(response.body());
+            }else{
+                Log.w("items loaded", "itemloader not initiated!");
+            }
 
         }else{
             try {
@@ -70,8 +56,6 @@ public class ItemCallback implements Callback<List<Vacation>> {
             }
             itemLoader.onLoadFailed();
         }
-
-        startCallback();
     }
 
     @Override
@@ -80,7 +64,6 @@ public class ItemCallback implements Callback<List<Vacation>> {
         Log.e("no response", t.getLocalizedMessage());
         t.printStackTrace();
         itemLoader.onLoadFailed();
-        startCallback();
     }
 
 }

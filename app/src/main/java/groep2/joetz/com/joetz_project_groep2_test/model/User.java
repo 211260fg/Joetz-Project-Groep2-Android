@@ -1,5 +1,6 @@
 package groep2.joetz.com.joetz_project_groep2_test.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,6 +44,9 @@ public class User {
     }
 
     public List<Vacation> getHistory() {
+        if(history==null)
+            history=new ArrayList<>();
+
         return history;
     }
 

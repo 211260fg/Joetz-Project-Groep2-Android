@@ -1,5 +1,7 @@
 package groep2.joetz.com.joetz_project_groep2_test.repository;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +22,21 @@ public class Repository {
     private static List<OnContactsLoadedListener> contactslisteners = new ArrayList<>();
 
     private static List<Vacation> items = new ArrayList<>();
+    private static List<Vacation> history = new ArrayList<>();
     private static List<User> contacts = new ArrayList<>();
+
+    private static ItemLoader itemLoader;
+    private static LoginLoader loginLoader;
+    private static ContactsLoader contactsLoader;
+
+
+    //---------------------------//
+
+    static {
+        itemLoader = new ItemLoader();
+        loginLoader = new LoginLoader();
+        contactsLoader = new ContactsLoader();
+    }
 
     //---------------------------//
 
@@ -76,20 +92,19 @@ public class Repository {
 
     public static void loadItems(){
         items= new ArrayList<>();
-        new ItemLoader();
+        itemLoader.loadItems();
     }
-
     //--------------------------//
 
     public static void loadContacts(){
         contacts= new ArrayList<>();
-        new ContactsLoader();
+        contactsLoader.loadContacts();
     }
 
     //--------------------------//
 
     public static void loginUser(String username, String password){
-        new LoginLoader(username, password);
+        loginLoader.login(username, password);
     }
 
     public static void logoutUser() {
