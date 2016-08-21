@@ -1,8 +1,6 @@
 package groep2.joetz.com.joetz_project_groep2_test.fragments;
 
-import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -13,7 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import groep2.joetz.com.joetz_project_groep2_test.R;
-import groep2.joetz.com.joetz_project_groep2_test.model.Vakantie;
+import groep2.joetz.com.joetz_project_groep2_test.model.Vacation;
 import groep2.joetz.com.joetz_project_groep2_test.repository.Repository;
 
 public class VacationFragment extends Fragment {
@@ -22,7 +20,7 @@ public class VacationFragment extends Fragment {
     public static final String ITEM_SELECTED_POSITION = "ItemPos";
     private int currentPosition=-1;
     private View rootView;
-    private Vakantie vakantie;
+    private Vacation vacation;
 
 
     public static VacationFragment getNewInstance(int index) {
@@ -52,7 +50,7 @@ public class VacationFragment extends Fragment {
         else{
             Log.d("savedinstance", "null");
         }
-        vakantie = Repository.getItems().get(currentPosition);
+        vacation = Repository.getItems().get(currentPosition);
 
         setVacationDetails();
         setButtonProperties();
@@ -87,12 +85,12 @@ public class VacationFragment extends Fragment {
             TextView age = (TextView) rootView.findViewById(R.id.itemage);
             TextView location = (TextView) rootView.findViewById(R.id.itemlocation);
 
-            title.setText(vakantie.getTitle());
-            description.setText(vakantie.getExtra_info());
-            startdate.setText(vakantie.getStartDate().toString());
-            enddate.setText(vakantie.getEndDate().toString());
-            //age.setText(vakantie.getMinAge());
-            location.setText(vakantie.getLocation());
+            title.setText(vacation.getTitle());
+            description.setText(vacation.getExtra_info());
+            startdate.setText(vacation.getStartDate().toString());
+            enddate.setText(vacation.getEndDate().toString());
+            //age.setText(vacation.getMinAge());
+            location.setText(vacation.getLocation());
 
         }else{
             Log.d("rootview", "null");

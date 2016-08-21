@@ -4,29 +4,20 @@ package groep2.joetz.com.joetz_project_groep2_test.rest;
  * Created by floriangoeteyn on 26-May-16.
  */
 
-import android.util.Log;
-
-import com.google.gson.annotations.SerializedName;
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 import groep2.joetz.com.joetz_project_groep2_test.model.User;
-import groep2.joetz.com.joetz_project_groep2_test.model.Vakantie;
+import groep2.joetz.com.joetz_project_groep2_test.model.Vacation;
 import retrofit.Call;
-import retrofit.Callback;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
-import retrofit.http.Field;
-import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 
 
@@ -88,8 +79,8 @@ public class RestClient {
     }
 
 
-    public List<Call<List<Vakantie>>> getItemCalls(){
-        List<Call<List<Vakantie>>> calls = new ArrayList<>();
+    public List<Call<List<Vacation>>> getItemCalls(){
+        List<Call<List<Vacation>>> calls = new ArrayList<>();
         calls.add(getItemClient().getVakanties());
         return calls;
     }
@@ -101,7 +92,7 @@ public class RestClient {
     public interface ItemApiInterface{
 
         @GET(Values.URL_VACATIONS)
-        Call<List<Vakantie>> getVakanties();
+        Call<List<Vacation>> getVakanties();
     }
 
     public interface UserApiInterface{

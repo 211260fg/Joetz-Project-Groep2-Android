@@ -1,18 +1,15 @@
 package groep2.joetz.com.joetz_project_groep2_test.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,7 +18,7 @@ import java.util.Locale;
 
 import groep2.joetz.com.joetz_project_groep2_test.R;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.OnFragmentInteractionListener;
-import groep2.joetz.com.joetz_project_groep2_test.model.Vakantie;
+import groep2.joetz.com.joetz_project_groep2_test.model.Vacation;
 
 /**
  * Created by floriangoeteyn on 04-Jun-16.
@@ -29,7 +26,7 @@ import groep2.joetz.com.joetz_project_groep2_test.model.Vakantie;
 public class RecyclerViewAdapter  extends RecyclerView.Adapter<RecyclerViewAdapter.ItemViewHolder> {
 
 
-    private List<Vakantie> items = new ArrayList<>();
+    private List<Vacation> items = new ArrayList<>();
     private OnFragmentInteractionListener mListener;
     private static Context context;
 
@@ -37,13 +34,13 @@ public class RecyclerViewAdapter  extends RecyclerView.Adapter<RecyclerViewAdapt
 
 
     //doorgeven van de fragmentInteractionListener en items
-    public RecyclerViewAdapter(List<Vakantie> items, OnFragmentInteractionListener mListener, Context context) {
+    public RecyclerViewAdapter(List<Vacation> items, OnFragmentInteractionListener mListener, Context context) {
         this.items = items;
         this.mListener = mListener;
         RecyclerViewAdapter.context = context;
     }
 
-    public List<Vakantie> getItems() {
+    public List<Vacation> getItems() {
         return items;
     }
 
@@ -54,7 +51,7 @@ public class RecyclerViewAdapter  extends RecyclerView.Adapter<RecyclerViewAdapt
     }
 
 
-    public void setItems(List<Vakantie> items) {
+    public void setItems(List<Vacation> items) {
         this.items = items;
     }
 
@@ -63,7 +60,7 @@ public class RecyclerViewAdapter  extends RecyclerView.Adapter<RecyclerViewAdapt
     public void onBindViewHolder(final ItemViewHolder itemViewHolder, final int i) {
 
         //pas text en omschrijving in de itemviewholder aan voor elk item
-        final Vakantie item = items.get(i);
+        final Vacation item = items.get(i);
 
         itemViewHolder.itemTitle.setText(item.getTitle());
         itemViewHolder.itemLocation.setText(item.getLocation());

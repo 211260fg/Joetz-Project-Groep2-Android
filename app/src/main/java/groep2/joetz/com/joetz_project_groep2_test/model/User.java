@@ -12,7 +12,7 @@ public class User {
     private String firstname;
     private String lastname;
     private String profileimage;
-    private List<Vakantie> history;
+    private List<Vacation> history;
     private String function;
 
     public User(String email, String firstname, String lastname, String profileimage) {
@@ -42,7 +42,7 @@ public class User {
         return profileimage;
     }
 
-    public List<Vakantie> getHistory() {
+    public List<Vacation> getHistory() {
         return history;
     }
 

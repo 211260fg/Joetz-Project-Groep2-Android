@@ -7,7 +7,7 @@ import groep2.joetz.com.joetz_project_groep2_test.loader.ContactsLoader;
 import groep2.joetz.com.joetz_project_groep2_test.loader.ItemLoader;
 import groep2.joetz.com.joetz_project_groep2_test.loader.LoginLoader;
 import groep2.joetz.com.joetz_project_groep2_test.model.User;
-import groep2.joetz.com.joetz_project_groep2_test.model.Vakantie;
+import groep2.joetz.com.joetz_project_groep2_test.model.Vacation;
 import groep2.joetz.com.joetz_project_groep2_test.session.UserSessionManager;
 
 /**
@@ -19,12 +19,12 @@ public class Repository {
     private static List<OnLoggedInListener> loginlisteners = new ArrayList<>();
     private static List<OnContactsLoadedListener> contactslisteners = new ArrayList<>();
 
-    private static List<Vakantie> items = new ArrayList<>();
+    private static List<Vacation> items = new ArrayList<>();
     private static List<User> contacts = new ArrayList<>();
 
     //---------------------------//
 
-    public static List<Vakantie> getItems() {
+    public static List<Vacation> getItems() {
         return items;
     }
 
@@ -43,7 +43,7 @@ public class Repository {
             itemlisteners.add(listener);
     }
 
-    public void removeListener(OnItemsLoadedListener listener){
+    public static void removeListener(OnItemsLoadedListener listener){
         if(itemlisteners.contains(listener))
             itemlisteners.remove(listener);
     }
@@ -55,7 +55,7 @@ public class Repository {
             loginlisteners.add(listener);
     }
 
-    public void removeListener(OnLoggedInListener listener){
+    public static void removeListener(OnLoggedInListener listener){
         if(loginlisteners.contains(listener))
             loginlisteners.remove(listener);
     }
@@ -67,7 +67,7 @@ public class Repository {
             contactslisteners.add(listener);
     }
 
-    public void removeListener(OnContactsLoadedListener listener){
+    public static void removeListener(OnContactsLoadedListener listener){
         if(contactslisteners.contains(listener))
             contactslisteners.remove(listener);
     }
@@ -99,7 +99,7 @@ public class Repository {
 
     //--------------------------//
 
-    public static void onItemsLoaded(List<Vakantie> items){
+    public static void onItemsLoaded(List<Vacation> items){
         Repository.items=items;
         notifyListenersItemsLoaded();
     }

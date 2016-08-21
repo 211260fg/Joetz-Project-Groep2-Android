@@ -7,9 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import groep2.joetz.com.joetz_project_groep2_test.loader.ContactsLoader;
-import groep2.joetz.com.joetz_project_groep2_test.loader.ItemLoader;
 import groep2.joetz.com.joetz_project_groep2_test.model.User;
-import groep2.joetz.com.joetz_project_groep2_test.model.Vakantie;
+import groep2.joetz.com.joetz_project_groep2_test.model.Vacation;
 import groep2.joetz.com.joetz_project_groep2_test.session.UserSessionManager;
 import retrofit.Call;
 import retrofit.Callback;
@@ -23,7 +22,7 @@ public class ContactsCallback implements Callback<List<User>> {
 
     private ContactsLoader contactsLoader;
 
-    private List<Call<List<Vakantie>>> calls;
+    private List<Call<List<Vacation>>> calls;
     private int index;
     RestClient restClient;
 

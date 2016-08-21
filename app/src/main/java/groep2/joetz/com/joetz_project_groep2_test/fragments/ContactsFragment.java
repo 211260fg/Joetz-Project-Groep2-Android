@@ -65,6 +65,7 @@ public class ContactsFragment extends Fragment implements OnContactsLoadedListen
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        Repository.removeListener(this);
     }
 
     @Override

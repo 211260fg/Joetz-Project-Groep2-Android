@@ -1,20 +1,15 @@
 package groep2.joetz.com.joetz_project_groep2_test.fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -26,7 +21,7 @@ import groep2.joetz.com.joetz_project_groep2_test.repository.OnItemsLoadedListen
 import groep2.joetz.com.joetz_project_groep2_test.repository.Repository;
 
 
-public class HollydaysFragment extends Fragment implements OnItemsLoadedListener {
+public class VacationsFragment extends Fragment implements OnItemsLoadedListener {
 
     private OnFragmentInteractionListener mListener;
     private RecyclerView rv;
@@ -36,8 +31,8 @@ public class HollydaysFragment extends Fragment implements OnItemsLoadedListener
 
     private View rootView;
 
-    public static HollydaysFragment getNewInstance() {
-        return new HollydaysFragment();
+    public static VacationsFragment getNewInstance() {
+        return new VacationsFragment();
     }
 
 
@@ -89,6 +84,7 @@ public class HollydaysFragment extends Fragment implements OnItemsLoadedListener
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        Repository.removeListener(this);
     }
 
     @Override

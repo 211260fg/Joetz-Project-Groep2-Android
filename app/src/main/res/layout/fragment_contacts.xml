@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/contactsfragment"
-    tools:context="groep2.joetz.com.joetz_project_groep2_test.fragments.HollydaysFragment">
+    tools:context=".fragments.VacationsFragment">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"

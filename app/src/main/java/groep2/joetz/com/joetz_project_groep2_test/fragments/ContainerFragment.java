@@ -20,7 +20,7 @@ public class ContainerFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_container, container, false);
 
-        setVisibleFragment(HollydaysFragment.getNewInstance());
+        setVisibleFragment(VacationsFragment.getNewInstance());
 
         return view;
     }

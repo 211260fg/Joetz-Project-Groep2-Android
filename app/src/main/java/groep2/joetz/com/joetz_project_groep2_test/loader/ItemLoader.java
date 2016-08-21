@@ -3,8 +3,7 @@ package groep2.joetz.com.joetz_project_groep2_test.loader;
 import java.util.ArrayList;
 import java.util.List;
 
-import groep2.joetz.com.joetz_project_groep2_test.model.User;
-import groep2.joetz.com.joetz_project_groep2_test.model.Vakantie;
+import groep2.joetz.com.joetz_project_groep2_test.model.Vacation;
 import groep2.joetz.com.joetz_project_groep2_test.repository.Repository;
 import groep2.joetz.com.joetz_project_groep2_test.rest.ItemCallback;
 
@@ -16,7 +15,7 @@ import groep2.joetz.com.joetz_project_groep2_test.rest.ItemCallback;
 public class ItemLoader{
 
     private ItemCallback callback;
-    private List<Vakantie> items;
+    private List<Vacation> items;
 
 
     public ItemLoader(){
@@ -25,7 +24,7 @@ public class ItemLoader{
         callback.getItems();
     }
 
-    public void onItemsLoaded(List<Vakantie> items) {
+    public void onItemsLoaded(List<Vacation> items) {
         this.items=items;
         Repository.onItemsLoaded(items);
     }

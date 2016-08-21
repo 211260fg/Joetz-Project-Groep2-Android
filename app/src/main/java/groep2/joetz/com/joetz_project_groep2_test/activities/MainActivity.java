@@ -1,21 +1,11 @@
 package groep2.joetz.com.joetz_project_groep2_test.activities;
 
 
-import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
-import android.content.DialogInterface;
-import android.content.res.AssetManager;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.view.ContextThemeWrapper;
-import android.util.Log;
-import android.util.Pair;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -23,44 +13,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.FrameLayout;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TabHost;
-import android.widget.TabWidget;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.facebook.FacebookSdk;
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
-import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
 
 import groep2.joetz.com.joetz_project_groep2_test.R;
-import groep2.joetz.com.joetz_project_groep2_test.adapter.MyFragmentPagerAdapter;
-import groep2.joetz.com.joetz_project_groep2_test.fragments.ChatFragment;
-import groep2.joetz.com.joetz_project_groep2_test.fragments.ContainerFragment;
-import groep2.joetz.com.joetz_project_groep2_test.fragments.HistoryFragment;
-import groep2.joetz.com.joetz_project_groep2_test.fragments.HollydaysFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.InfoFragment;
-import groep2.joetz.com.joetz_project_groep2_test.fragments.LoginFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.MainFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.OnFragmentInteractionListener;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.UserFragment;
-import groep2.joetz.com.joetz_project_groep2_test.fragments.VacationFragment;
 import groep2.joetz.com.joetz_project_groep2_test.repository.Repository;
 import groep2.joetz.com.joetz_project_groep2_test.session.UserSessionManager;
 

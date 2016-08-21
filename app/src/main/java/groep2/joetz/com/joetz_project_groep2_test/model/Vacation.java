@@ -9,7 +9,7 @@ import java.util.Locale;
 /**
  * Created by floriangoeteyn on 26-May-16.
  */
-public class Vakantie {
+public class Vacation {
 
     private String title;
     private String description;

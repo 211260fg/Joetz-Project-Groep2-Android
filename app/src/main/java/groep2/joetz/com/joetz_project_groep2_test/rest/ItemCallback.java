@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import groep2.joetz.com.joetz_project_groep2_test.loader.ItemLoader;
-import groep2.joetz.com.joetz_project_groep2_test.model.Vakantie;
+import groep2.joetz.com.joetz_project_groep2_test.model.Vacation;
 import groep2.joetz.com.joetz_project_groep2_test.session.UserSessionManager;
 import retrofit.Call;
 import retrofit.Callback;
@@ -17,11 +17,11 @@ import retrofit.Response;
 /**
  * Created by floriangoeteyn on 17-Mar-16.
  */
-public class ItemCallback implements Callback<List<Vakantie>> {
+public class ItemCallback implements Callback<List<Vacation>> {
 
     private ItemLoader itemLoader;
 
-    private List<Call<List<Vakantie>>> calls;
+    private List<Call<List<Vacation>>> calls;
     private int index;
     RestClient restClient;
 
@@ -56,7 +56,7 @@ public class ItemCallback implements Callback<List<Vakantie>> {
 
 
     @Override
-    public void onResponse(Response<List<Vakantie>> response) {
+    public void onResponse(Response<List<Vacation>> response) {
         if(response.isSuccess()){
             Log.w("response", "Successful!");
             if (itemLoader != null)

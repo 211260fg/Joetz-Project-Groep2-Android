@@ -124,6 +124,7 @@ public class LoginFragment extends Fragment implements OnLoggedInListener{
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        Repository.removeListener(this);
     }
 
     @Override

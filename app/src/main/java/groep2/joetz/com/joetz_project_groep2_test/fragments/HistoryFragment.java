@@ -18,7 +18,7 @@ import groep2.joetz.com.joetz_project_groep2_test.repository.OnItemsLoadedListen
 import groep2.joetz.com.joetz_project_groep2_test.repository.Repository;
 
 
-public class HistoryFragment extends Fragment {
+public class HistoryFragment extends Fragment implements OnItemsLoadedListener{
     private OnFragmentInteractionListener mListener;
 
 
@@ -49,6 +49,26 @@ public class HistoryFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        Repository.removeListener(this);
     }
 
+    @Override
+    public void onItemsLoaded() {
+
+    }
+
+    @Override
+    public void onLoadFailed() {
+
+    }
+
+    @Override
+    public void onItemAdded() {
+
+    }
+
+    @Override
+    public void onItemDeleted() {
+
+    }
 }
