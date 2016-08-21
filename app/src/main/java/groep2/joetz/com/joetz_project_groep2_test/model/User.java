@@ -14,7 +14,7 @@ public class User {
     private String lastname;
     private String profileimage;
     private List<Vacation> history;
-    private String function;
+    private String function = "user";
 
     public User(String email, String firstname, String lastname, String profileimage) {
         this.email = email;

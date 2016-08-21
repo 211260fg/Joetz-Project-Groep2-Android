@@ -31,6 +31,9 @@ public class UserFragment extends Fragment {
     private ImageView profilephoto;
     private TextView profilename;
     private TextView profileDetails;
+    private TextView profileContacts;
+    private TextView profileHistory;
+    private TextView profileFunction;
 
 
     public static UserFragment getNewInstance() {
@@ -47,6 +50,9 @@ public class UserFragment extends Fragment {
         profilephoto = (ImageView) rootView.findViewById(R.id.user_profile_photo);
         profilename = (TextView) rootView.findViewById(R.id.user_profile_name);
         profileDetails = (TextView) rootView.findViewById(R.id.user_profile_details);
+        profileContacts = (TextView) rootView.findViewById(R.id.user_profile_contacts);
+        profileHistory = (TextView) rootView.findViewById(R.id.user_profile_history);
+        profileFunction = (TextView) rootView.findViewById(R.id.user_profile_function);
 
         currentuser = Repository.getCurrentUser();
 
@@ -61,6 +67,9 @@ public class UserFragment extends Fragment {
         Glide.with(getContext()).load(currentuser.getProfileimage()).centerCrop().into(profilephoto);
         profilename.setText(currentuser.getFirstname()+" "+currentuser.getLastname());
         profileDetails.setText(currentuser.getEmail());
+        profileContacts.setText("Connecties : 5");
+        profileHistory.setText("Aantal bezochte kampen: "+currentuser.getHistory().size());
+        profileFunction.setText("Functie: "+currentuser.getFunction());
     }
 
 }
