@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ContextThemeWrapper;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +44,9 @@ public class MainFragment extends Fragment  implements OnFragmentInteractionList
 
     private AlertDialog dialog;
     private VacationFragment vacationFragment;
+    private ContainerFragment containerFragment;
+    private HistoryFragment historyFragment;
+    private ChatFragment chatFragment;
 
     private FloatingActionButton mFAB;
     private FloatingActionMenu mFABMenu;
@@ -50,7 +54,7 @@ public class MainFragment extends Fragment  implements OnFragmentInteractionList
     private static final String TAG_SORT_DATE = "sortDate";
     private static final String TAG_SORT_EXTRA = "sortExtra";
 
-    private final CharSequence[] periodes = {"Zomervakantie", "Herfstvakantie", "Kerstvakantie"};
+    private final CharSequence[] periodes = {"Zomervakantie", "Herfstvakantie", "Kerstvakantie", "Paasvakantie"};
     private final Pair<String, CharSequence[]> filter_periode = new Pair<>("Periode", periodes);
     private final CharSequence[] extras = {"Themavakanties ", "Inleefreizen ", "Zee ", "Buitenland ", "Ardennen ", "Taalstages ", "Gezondheidsvakanties "};
     private final Pair<String, CharSequence[]> filter_extra = new Pair<>("Extra filter", extras);
@@ -159,7 +163,7 @@ public class MainFragment extends Fragment  implements OnFragmentInteractionList
     @Override
     public void onFragmentInteraction(InteractedFragment interactedFragment, int pos) {
 
-        if(interactedFragment == InteractedFragment.VACATIONS) {
+        if(interactedFragment == InteractedFragment.VACATIONS&&this.tabHost.getCurrentTab()==0) {
             if (pos > -1) {
 
                 vacationFragment = VacationFragment.getNewInstance(pos);
@@ -263,10 +267,13 @@ public class MainFragment extends Fragment  implements OnFragmentInteractionList
         List<android.support.v4.app.Fragment> fragments = new Vector<>();
 
 
+        containerFragment = new ContainerFragment();
+        historyFragment = HistoryFragment.getNewInstance();
+        chatFragment = ChatFragment.getNewInstance();
 
-        fragments.add(new ContainerFragment());
-        fragments.add(HistoryFragment.getNewInstance());
-        fragments.add(ChatFragment.getNewInstance());
+        fragments.add(containerFragment);
+        fragments.add(historyFragment);
+        fragments.add(chatFragment);
 
         myFragmentPagerAdapter = new MyFragmentPagerAdapter(getChildFragmentManager(), fragments);
         this.viewPager = (ViewPager) rootView.findViewById(R.id.viewPager);

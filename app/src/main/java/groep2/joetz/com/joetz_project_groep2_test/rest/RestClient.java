@@ -6,11 +6,13 @@ package groep2.joetz.com.joetz_project_groep2_test.rest;
 
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Protocol;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import groep2.joetz.com.joetz_project_groep2_test.model.User;
@@ -69,6 +71,8 @@ public class RestClient {
                 return response;
             }
         });
+
+        okClient.setProtocols(Arrays.asList(Protocol.HTTP_1_1));
 
         return new Retrofit.Builder()
                 .baseUrl(Values.BASE_URL)

@@ -76,7 +76,9 @@
                     <TextView
                         android:id="@+id/itemstartdate"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:layout_gravity="center_vertical"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -91,7 +93,9 @@
                     <TextView
                         android:id="@+id/itemenddate"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:layout_gravity="center_vertical"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -114,7 +118,9 @@
                     <TextView
                         android:id="@+id/itemlocation"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:layout_gravity="center_vertical" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -129,7 +135,9 @@
                     <TextView
                         android:id="@+id/itemage"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:layout_gravity="center_vertical" />
                 </LinearLayout>
 
 

@@ -64,7 +64,7 @@ public class RecyclerViewAdapter  extends RecyclerView.Adapter<RecyclerViewAdapt
 
         itemViewHolder.itemTitle.setText(item.getTitle());
         itemViewHolder.itemLocation.setText(item.getLocation());
-        itemViewHolder.itemAge.setText("van " + item.getMinAge() + " t.e.m. " + item.getMaxAge() + " jaar");
+        itemViewHolder.itemAge.setText(item.getMinAge() + " - " + item.getMaxAge() + " jaar");
         if (item.getStartDate() != null)
             itemViewHolder.itemStartDate.setText(new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(item.getStartDate()));
         if (item.getStartDate() != null)

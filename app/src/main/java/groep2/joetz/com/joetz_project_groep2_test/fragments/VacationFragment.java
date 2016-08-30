@@ -1,14 +1,20 @@
 package groep2.joetz.com.joetz_project_groep2_test.fragments;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.view.ContextThemeWrapper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.text.DateFormat;
 
 import groep2.joetz.com.joetz_project_groep2_test.R;
 import groep2.joetz.com.joetz_project_groep2_test.model.Vacation;
@@ -77,6 +83,8 @@ public class VacationFragment extends Fragment {
 
 
     private void setVacationDetails() {
+        DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getContext());
+
         if (rootView != null) {
             TextView title = (TextView) rootView.findViewById(R.id.vactionTitle);
             TextView description = (TextView) rootView.findViewById(R.id.vactionDescription);
@@ -87,8 +95,9 @@ public class VacationFragment extends Fragment {
 
             title.setText(vacation.getTitle());
             description.setText(vacation.getExtra_info());
-            startdate.setText(vacation.getStartDate().toString());
-            enddate.setText(vacation.getEndDate().toString());
+            startdate.setText(dateFormat.format(vacation.getStartDate()));
+            enddate.setText(dateFormat.format(vacation.getEndDate()));
+            age.setText(vacation.getMinAge()+" tot "+vacation.getMaxAge()+" jaar");
             //age.setText(vacation.getMinAge());
             location.setText(vacation.getLocation());
 
@@ -99,11 +108,37 @@ public class VacationFragment extends Fragment {
 
     private void setButtonProperties(){
         Button btnGoBack = (Button) rootView.findViewById(R.id.btnGoBack);
+        Button btnRegisterVacation = (Button) rootView.findViewById(R.id.btnRegisterVacation);
 
         btnGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mListener.onFragmentInteraction(OnFragmentInteractionListener.InteractedFragment.VACATIONS, -1);
+            }
+        });
+
+        btnRegisterVacation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog d = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.AlertDialogCustom))
+                        .setTitle("Inschrijving")
+                        .setMessage("Bent u zeker dat u wilt inschrijven voor "+vacation.getTitle()+"?")
+                        .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                //TODO implement
+                            }
+                        })
+                        .setNegativeButton("Nee", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .show();
+
+
+                Button nbutton = d.getButton(DialogInterface.BUTTON_NEGATIVE);
+                nbutton.setTextColor(getResources().getColor(R.color.maintheme));
+                Button pbutton = d.getButton(DialogInterface.BUTTON_POSITIVE);
+                pbutton.setTextColor(getResources().getColor(R.color.maintheme));
             }
         });
 
