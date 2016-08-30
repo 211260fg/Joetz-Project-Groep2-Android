@@ -34,6 +34,7 @@ import java.util.Vector;
 
 import groep2.joetz.com.joetz_project_groep2_test.R;
 import groep2.joetz.com.joetz_project_groep2_test.adapter.MyFragmentPagerAdapter;
+import groep2.joetz.com.joetz_project_groep2_test.repository.Repository;
 
 public class MainFragment extends Fragment  implements OnFragmentInteractionListener, TabHost.OnTabChangeListener{
 
@@ -43,6 +44,8 @@ public class MainFragment extends Fragment  implements OnFragmentInteractionList
     int i = 0;
 
     private AlertDialog dialog;
+    private DatePicker picker;
+
     private VacationFragment vacationFragment;
     private ContainerFragment containerFragment;
     private HistoryFragment historyFragment;
@@ -227,7 +230,7 @@ public class MainFragment extends Fragment  implements OnFragmentInteractionList
 
     private void buildDatePickerDialog() {
 
-        DatePicker picker = new DatePicker(getContext());
+        picker = new DatePicker(getContext());
         picker.setCalendarViewShown(false);
         builder = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.AlertDialogCustom))
                 .setTitle("Filter op leeftijd")
@@ -241,6 +244,13 @@ public class MainFragment extends Fragment  implements OnFragmentInteractionList
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 //  Your code when user clicked on OK
+                int day, month, year=2016;
+                if(picker!=null){
+                    /*day=picker.getDayOfMonth();
+                    month=picker.getMonth();*/
+                    year = picker.getYear();
+                }
+                Repository.filter(2016-year, null, null);
             }})
                 .setNegativeButton("Terug", new DialogInterface.OnClickListener() {
                             @Override

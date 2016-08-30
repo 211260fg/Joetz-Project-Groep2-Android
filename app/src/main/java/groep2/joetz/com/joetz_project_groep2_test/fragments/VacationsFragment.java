@@ -121,6 +121,7 @@ public class VacationsFragment extends Fragment implements OnItemsLoadedListener
             swipeRefreshLayout.setRefreshing(false);
         if(adapter!=null)
             adapter.notifyDataSetChanged();
+        Log.d("vacations fragment", "items loaded, size: "+Repository.getItems().size());
     }
 
     @Override
@@ -142,7 +143,6 @@ public class VacationsFragment extends Fragment implements OnItemsLoadedListener
     public void onItemDeleted() {
 
     }
-
 
     /**
      * helper class to solve a bug in recyclerview

@@ -22,8 +22,11 @@ public class Repository {
     private static List<OnContactsLoadedListener> contactslisteners = new ArrayList<>();
 
     private static List<Vacation> items = new ArrayList<>();
-    private static List<Vacation> history = new ArrayList<>();
     private static List<User> contacts = new ArrayList<>();
+
+    private static List<Vacation> filtered_age = new ArrayList<>();
+    private static List<Vacation> filtered_period = new ArrayList<>();
+    private static List<Vacation> filtered_extra = new ArrayList<>();
 
     private static ItemLoader itemLoader;
     private static LoginLoader loginLoader;
@@ -92,6 +95,7 @@ public class Repository {
 
     public static void loadItems(){
         items= new ArrayList<>();
+        initFilters();
         itemLoader.loadItems();
     }
     //--------------------------//
@@ -110,6 +114,7 @@ public class Repository {
     public static void logoutUser() {
         UserSessionManager.logoutUser();
         items = new ArrayList<>();
+        initFilters();
     }
 
     //--------------------------//
@@ -187,6 +192,42 @@ public class Repository {
         for(OnContactsLoadedListener listener: contactslisteners){
             listener.onLoadFailed();
         }
+    }
+
+
+    //--------------------------//
+
+    private static void initFilters(){
+        filtered_age=new ArrayList<>();
+        filtered_extra=new ArrayList<>();
+        filtered_period=new ArrayList<>();
+    }
+
+    public static void filter(int leeftijd, String periode, String extra){
+
+        List<Vacation> tempList = new ArrayList<>();
+
+        if(leeftijd>-1){
+            for(Vacation v: filtered_age){
+                if(v.getMinAge()>leeftijd||v.getMaxAge()<leeftijd){
+                    items.add(v);
+                    tempList.add(v);
+                }
+            }
+            for(Vacation v: items){
+                if(v.getMinAge()>leeftijd||v.getMaxAge()<leeftijd){
+                    filtered_age.add(v);
+                }
+            }
+            filtered_age.removeAll(tempList);
+            items.removeAll(filtered_age);
+
+        }else if(periode!=null){
+
+        }else if(extra!=null){
+
+        }
+        notifyListenersItemsLoaded();
     }
 
 

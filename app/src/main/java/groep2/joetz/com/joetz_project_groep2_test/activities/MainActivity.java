@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.facebook.FacebookSdk;
 
 import groep2.joetz.com.joetz_project_groep2_test.R;
+import groep2.joetz.com.joetz_project_groep2_test.fragments.CalendarFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.InfoFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.MainFragment;
 import groep2.joetz.com.joetz_project_groep2_test.fragments.OnFragmentInteractionListener;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     private MainFragment mainFragment;
     private UserFragment userFragment;
     private InfoFragment infoFragment;
+    private CalendarFragment calendarFragment;
 
 
     private UserSessionManager session;
@@ -176,6 +178,11 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
                 }
                 break;
             case R.id.nav_activities:
+                if (calendarFragment == null || !calendarFragment.isVisible()) {
+                    calendarFragment = CalendarFragment.getNewInstance();
+                    transaction.replace(R.id.fragmenPane, calendarFragment);
+                    transaction.commit();
+                }
                 break;
             case R.id.nav_info:
                 if (infoFragment == null || !infoFragment.isVisible()) {
@@ -184,8 +191,8 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
                     transaction.commit();
                 }
                 break;
-            case R.id.nav_settings:
-                break;
+            /*case R.id.nav_settings:
+                break;*/
             case R.id.nav_logout:
                 Repository.logoutUser();
                 break;
