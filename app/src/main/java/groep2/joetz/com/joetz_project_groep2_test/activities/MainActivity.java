@@ -150,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
             Glide.with(this).load(Repository.getCurrentUser().getProfileimage()).centerCrop().into(profilephoto);
             profilename.setText(Repository.getCurrentUser().getFirstname() + " " + Repository.getCurrentUser().getLastname());
+            //profilename.setText(Repository.getCurrentUser().getEmail());
             profiledetails.setText(Repository.getCurrentUser().getEmail());
 
         } catch (NullPointerException npe) {

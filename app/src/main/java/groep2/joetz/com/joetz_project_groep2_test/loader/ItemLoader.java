@@ -16,13 +16,27 @@ import groep2.joetz.com.joetz_project_groep2_test.rest.ItemCallback;
 //klasse verantwoordelijk voor communicatie tussen REST en Repository
 public class ItemLoader{
 
+    private boolean loadHistory;
+
     public void loadItems(){
+        this.loadHistory=false;
         ItemCallback callback = new ItemCallback(this);
         callback.getItems();
     }
 
+    public void loadHistory(){
+        this.loadHistory=true;
+        ItemCallback callback = new ItemCallback(this);
+        callback.getHistory();
+    }
+
     public void onItemsLoaded(List<Vacation> items) {
-        Repository.onItemsLoaded(items);
+        if(loadHistory) {
+            Repository.onHistoryLoaded(items);
+        }
+        else {
+            Repository.onItemsLoaded(items);
+        }
     }
 
     public void onLoadFailed(){

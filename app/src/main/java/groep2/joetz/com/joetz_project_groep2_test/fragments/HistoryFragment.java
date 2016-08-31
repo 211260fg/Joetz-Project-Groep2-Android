@@ -11,6 +11,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ import groep2.joetz.com.joetz_project_groep2_test.repository.OnItemsLoadedListen
 import groep2.joetz.com.joetz_project_groep2_test.repository.Repository;
 
 
-public class HistoryFragment extends Fragment{
+public class HistoryFragment extends Fragment implements OnItemsLoadedListener{
     private OnFragmentInteractionListener mListener;
     private RecyclerView rv;
     private RecyclerViewAdapter adapter;
@@ -50,18 +51,33 @@ public class HistoryFragment extends Fragment{
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                adapter.notifyDataSetChanged();
-                swipeRefreshLayout.setRefreshing(false);
+                //adapter.notifyDataSetChanged();
+                //swipeRefreshLayout.setRefreshing(false);
+                Repository.loadHistory();
             }
         });
         swipeRefreshLayout.setColorSchemeResources(R.color.maintheme);
         swipeRefreshLayout.setEnabled(true);
         swipeRefreshLayout.setRefreshing(true);
 
-        createItemView();
-
         return rootView;
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        createItemView();
+        Repository.registerListener(this);
+        Repository.loadHistory();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        createItemView();
+        Repository.registerListener(this);
+        Repository.loadHistory();
     }
 
     @Override
@@ -96,11 +112,42 @@ public class HistoryFragment extends Fragment{
                 rv.setLayoutManager(new GridLayoutManager(getContext(), 2));
             }
 
-            adapter = new RecyclerViewAdapter(Repository.getCurrentUser().getHistory(), mListener, getContext());
+            adapter = new RecyclerViewAdapter(Repository.getHistory(), mListener, getContext());
             rv.setAdapter(adapter);
 
             rv.setItemAnimator(new DefaultItemAnimator());
         }
+    }
+
+    @Override
+    public void onItemsLoaded() {
+        //TODO FIX
+        createItemView();
+        if(swipeRefreshLayout!=null)
+            swipeRefreshLayout.setRefreshing(false);
+        if(adapter!=null)
+            adapter.notifyDataSetChanged();
+        Log.d("history fragment", "items loaded, size: "+Repository.getHistory().size());
+    }
+
+    @Override
+    public void onLoadFailed() {
+        if(swipeRefreshLayout!=null)
+            swipeRefreshLayout.setRefreshing(false);
+        if(adapter!=null)
+            adapter.notifyDataSetChanged();
+        if(getActivity()!=null)
+            Toast.makeText(getActivity(), "Kampen konden niet geladen worden", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onItemAdded() {
+
+    }
+
+    @Override
+    public void onItemDeleted() {
+
     }
 
 

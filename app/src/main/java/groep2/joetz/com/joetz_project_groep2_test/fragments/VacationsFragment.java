@@ -72,6 +72,14 @@ public class VacationsFragment extends Fragment implements OnItemsLoadedListener
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        createItemView();
+        Repository.registerListener(this);
+        Repository.loadHistory();
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         try {

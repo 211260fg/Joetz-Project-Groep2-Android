@@ -27,7 +27,8 @@ public class ItemCallback implements Callback<List<Vacation>> {
         this.itemLoader = itemLoader;
         try{
             HashMap<String, String> user = UserSessionManager.getUserDetails();
-            restClient = new RestClient(user.get(UserSessionManager.KEY_NAME), user.get(UserSessionManager.KEY_PASSWORD));
+            //restClient = new RestClient(user.get(UserSessionManager.KEY_NAME), user.get(UserSessionManager.KEY_PASSWORD));
+            restClient = new RestClient(Values.BASE_URL);
         }
         catch(NullPointerException ignored){
         }
@@ -37,11 +38,19 @@ public class ItemCallback implements Callback<List<Vacation>> {
         restClient.getItemClient().getVacations().enqueue(this);
     }
 
+    public void getHistory(){
+        if(UserSessionManager.getCurrentUser()!=null)
+            //restClient.getItemClient().getHistory(UserSessionManager.getCurrentUser().getId()).enqueue(this);
+            restClient.getItemClient().getHistory().enqueue(this);
+        else
+            onFailure(null);
+    }
+
 
     @Override
     public void onResponse(Response<List<Vacation>> response) {
         if(response.isSuccess()){
-            Log.w("response", "Successful!");
+            Log.w("response", "Successful! "+response.body().size());
             if (itemLoader != null) {
                 itemLoader.onItemsLoaded(response.body());
             }else{
@@ -61,8 +70,10 @@ public class ItemCallback implements Callback<List<Vacation>> {
     @Override
     public void onFailure(Throwable t) {
         //stuur een melding naar de loader dat geen verbinding kon gemaakt worden (meestal omdat er geen internet is)
-        Log.e("no response", t.getLocalizedMessage());
-        t.printStackTrace();
+        if(t!=null) {
+            Log.e("no response", t.getLocalizedMessage());
+            t.printStackTrace();
+        }
         itemLoader.onLoadFailed();
     }
 

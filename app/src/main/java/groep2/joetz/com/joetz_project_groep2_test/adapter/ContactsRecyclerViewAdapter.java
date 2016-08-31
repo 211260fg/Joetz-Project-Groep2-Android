@@ -47,7 +47,7 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
     public void onBindViewHolder(final ContactsViewHolder contactsViewHolder, int i) {
         final User contact = contacts.get(i);
 
-        contactsViewHolder.contactName.setText(contact.getFirstname());
+        contactsViewHolder.contactName.setText(contact.getEmail());
 
         contactsViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -11,10 +11,21 @@ public class LoginLoader {
 
     LoginCallback callback;
 
-    public void login(String username, String password){
-        this.callback = new LoginCallback(this, username, password);
+    public LoginLoader(){
+        this.callback = new LoginCallback(this);
     }
 
+    public void login(String username, String password){
+        callback.login(username, password);
+    }
+
+    public void register(User user, String password){
+        callback.register(user, password);
+    }
+
+    public void modify(User user){
+        callback.modify(user);
+    }
     public void onUserLoggedIn(User user){
         Repository.onLoginSuccess(user);
     }

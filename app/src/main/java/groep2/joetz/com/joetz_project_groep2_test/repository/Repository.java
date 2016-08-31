@@ -22,6 +22,7 @@ public class Repository {
     private static List<OnContactsLoadedListener> contactslisteners = new ArrayList<>();
 
     private static List<Vacation> items = new ArrayList<>();
+    private static List<Vacation> history = new ArrayList<>();
     private static List<User> contacts = new ArrayList<>();
 
     private static List<Vacation> filtered_age = new ArrayList<>();
@@ -45,6 +46,10 @@ public class Repository {
 
     public static List<Vacation> getItems() {
         return items;
+    }
+
+    public static List<Vacation> getHistory() {
+        return history;
     }
 
     public static List<User> getContacts() {
@@ -98,6 +103,15 @@ public class Repository {
         initFilters();
         itemLoader.loadItems();
     }
+
+    //---------------------------//
+
+    public static void loadHistory(){
+        history= new ArrayList<>();
+        itemLoader.loadHistory();
+    }
+
+
     //--------------------------//
 
     public static void loadContacts(){
@@ -107,14 +121,30 @@ public class Repository {
 
     //--------------------------//
 
+    public static void registerUser(User user, String password){
+        loginLoader.register(user, password);
+    }
+
     public static void loginUser(String username, String password){
         loginLoader.login(username, password);
+    }
+
+    public static void modifyUser(User user){
+        loginLoader.modify(user);
     }
 
     public static void logoutUser() {
         UserSessionManager.logoutUser();
         items = new ArrayList<>();
         initFilters();
+    }
+
+    //--------------------------//
+
+    public static void onHistoryLoaded(List<Vacation> items){
+        Log.d("history repository", "size: "+items.size());
+        Repository.history=items;
+        notifyListenersItemsLoaded();
     }
 
     //--------------------------//

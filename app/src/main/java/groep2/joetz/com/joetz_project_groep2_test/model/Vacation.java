@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -22,6 +23,23 @@ public class Vacation {
     private String location;
     private Category category;
     private int price;
+
+    /*private String _id;
+    private String title;
+    private String discraption;
+    private String place;
+    private String departureTime;
+    private String returnTime;
+    private double price;
+    private int minAge;
+    private int maxAge;
+    private String transport;
+    private String formule;
+    private String additionalInfo;
+    private String contactInfo;
+    private List<String> employees;*/
+
+
 
 
 
